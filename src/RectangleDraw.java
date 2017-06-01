@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class RectangleDraw extends JComponent implements MouseListener, MouseMotionListener
 {
     Rectangle box;
-    ArrayList<Rectangle> ar;
+    ArrayList<AttributeElement> ar;
 
     int x, y, w, h;
     boolean isDragged;
@@ -29,8 +29,8 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
         for(int i=0; i<ar.size(); i++) {
             double x = ar.get(i).getX();
             double y = ar.get(i).getY();
-            double w = ar.get(i).getWidth();
-            double h = ar.get(i).getHeight();
+            double w = ar.get(i).getW();
+            double h = ar.get(i).getH();
             g.drawRect((int)x, (int)y,
                     (int)w, (int)h);
         }
@@ -61,7 +61,7 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     public void mouseReleased(MouseEvent e){
         isDragged = false;
         repaint();
-        ar.add(box);
+        ar.add(new AttributeElement(x,y,w,h));
         System.out.print(ar.size());
     }
 

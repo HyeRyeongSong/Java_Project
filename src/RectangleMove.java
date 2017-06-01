@@ -1,14 +1,19 @@
 /**
  * Created by m2j97 on 2017-05-26.
  */
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 class RectangleMove extends JComponent implements MouseListener, MouseMotionListener
 {
     //사각형영역
     Rectangle box;
+    ArrayList<AttributeElement> ar;  //저장될 사각형들의 속성 정보
 
     //마우스 드래그 체크
     boolean isDragged;
@@ -23,7 +28,7 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
     int offX, offY;
 
     public RectangleMove(){
-
+        ar = new ArrayList<>();  //사각형 속성 배열 생성
         //사각형영역 정의(100x80 size)
         box = new Rectangle(0,0,100,80);
 

@@ -36,14 +36,6 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
         }
     }
 
-    public static void main(String[] args)
-    {
-        JFrame f = new JFrame("GUI BUILDER");
-        f.setBounds(0,0,800,800);
-        f.add(new RectangleDraw());
-        f.setVisible(true);
-
-    }
     @Override
     public void mouseClicked(MouseEvent e) {}
 
@@ -85,4 +77,14 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
 
     @Override
     public void mouseMoved(MouseEvent e) {}
+
+/*
+    public static void main(String[] args)
+    {
+        JFrame f = new JFrame("GUI BUILDER");
+        f.setBounds(0,0,800,800);
+        f.add(new RectangleDraw());
+        f.setVisible(true);
+    }
+    */
 }

@@ -13,6 +13,12 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
     //마우스 드래그 체크
     boolean isDragged;
 
+    //마우스 클릭 체크
+    boolean isClicked;
+
+    //사각형 색깔상태
+    Color recColor;
+
     //마우스 오프셋좌표
     int offX, offY;
 
@@ -23,6 +29,8 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
 
         //현재 드래그 상태 저장
         isDragged = false;
+        isClicked = false;
+        recColor = Color.RED;
 
         //마우스 리스너 등록
         addMouseListener(this);
@@ -34,10 +42,13 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
     public void paintComponent(Graphics g){
 
         //사각형 그릴 색상 설정
-        g.setColor(Color.RED);
+        g.setColor(recColor);
 
         //사각형 그림
-        g.drawRect(box.x,box.y,box.width,box.height);
+        if(isClicked)
+            g.fillRect(box.x,box.y,box.width,box.height);
+        else
+            g.drawRect(box.x, box.y, box.width, box.height);
 
         //사각형을 이동하기 위하여 사각형의 x,y 좌표와 사각형 내 클릭한 마우스의 좌표가 필요하다
 
@@ -53,7 +64,8 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
             offY = me.getY() - box.y;
 
             //드래그 시작을 표시
-            isDragged = true;
+            if(isClicked)
+                isDragged = true;
 
         }
     }
@@ -73,7 +85,15 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
     }
     public void mouseMoved(MouseEvent me){}
     public void mouseClicked(MouseEvent me){
+        if(box.contains(new Point(me.getX(),me.getY())))
+        {
+            if (isClicked)
+                isClicked = false;
+            else
+                isClicked = true;
+        }
 
+        repaint();
     }
     public void mouseEntered(MouseEvent me){}
     public void mouseExited(MouseEvent me){}
@@ -84,6 +104,7 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
         JFrame f = new JFrame("GUI BUILDER");
         f.setBounds(0,0,300,300);
         f.add(new RectangleMove());
+
         f.setVisible(true);
     }
 }

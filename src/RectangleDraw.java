@@ -3,16 +3,18 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 public class RectangleDraw extends JComponent implements MouseListener, MouseMotionListener
 {
     Rectangle box;
+    ArrayList<Rectangle> ar;
 
     int x, y, w, h;
     boolean isDragged;
 
     public RectangleDraw(){
-
+        ar = new ArrayList<>();
         isDragged = false;
 
         addMouseListener(this);
@@ -24,6 +26,14 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
         box = new Rectangle(x,y,w,h);
         g.setColor(Color.RED);
         g.drawRect(box.x, box.y, box.width, box.height);
+        for(int i=0; i<ar.size(); i++) {
+            double x = ar.get(i).getX();
+            double y = ar.get(i).getY();
+            double w = ar.get(i).getWidth();
+            double h = ar.get(i).getHeight();
+            g.drawRect((int)x, (int)y,
+                    (int)w, (int)h);
+        }
     }
 
     public static void main(String[] args)
@@ -40,6 +50,7 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     @Override
     public void mousePressed(MouseEvent e)
     {
+        x = y = w = h = 0;
         x = e.getX();
         y = e.getY();
         System.out.println("x: " + x + ", y: " + y);
@@ -49,6 +60,9 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     @Override
     public void mouseReleased(MouseEvent e){
         isDragged = false;
+        repaint();
+        ar.add(box);
+        System.out.print(ar.size());
     }
 
     @Override

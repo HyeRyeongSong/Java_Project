@@ -27,7 +27,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     private Mode mode;  //현재 에디터의 모드
 
     enum Mode{
-        Draw, SelectAndMove
+        Draw, SelectAndMove, ChanegeSize, Remove
     }
 
     public RectangleEditor()
@@ -86,6 +86,26 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
 
             //사각형을 이동하기 위하여 사각형의 x,y 좌표와 사각형 내 클릭한 마우스의 좌표가 필요하다
         }
+        else if(mode == Mode.ChanegeSize)
+        {
+
+        }
+        else if(mode == Mode.Remove)
+        {
+            g.setColor(recColor);
+
+            //사각형 그림
+            for(int i=0; i<ar.size(); i++) {
+                double x = ar.get(i).getX();
+                double y = ar.get(i).getY();
+                double w = ar.get(i).getW();
+                double h = ar.get(i).getH();
+                if(i == selected)
+                    g.fillRect((int)x, (int)y,(int)w, (int)h);
+                else
+                    g.drawRect((int)x, (int)y,(int)w, (int)h);
+            }
+        }
     }
 
     @Override
@@ -93,6 +113,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     {
         if(mode == Mode.SelectAndMove)
         {
+            selected = -1;
             for(int i = 0; i < ar.size(); i++)
             {
                 Rectangle cur = new Rectangle(ar.get(i).getX(), ar.get(i).getY(), ar.get(i).getW(), ar.get(i).getH());
@@ -100,9 +121,32 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
                 if (cur.contains(new Point(e.getX(), e.getY())))
                 {
                     selected = i;
+                    isClicked = true;
                 }
                 System.out.println("selected: " + selected);
-                isClicked = true;
+
+                repaint();
+            }
+        }
+        else if(mode == Mode.Remove)
+        {
+            int before = selected;
+            selected = -1;
+            for(int i = 0; i < ar.size(); i++)
+            {
+                Rectangle cur = new Rectangle(ar.get(i).getX(), ar.get(i).getY(), ar.get(i).getW(), ar.get(i).getH());
+
+                if (cur.contains(new Point(e.getX(), e.getY())))
+                {
+                    selected = i;
+                    isClicked = true;
+                }
+                System.out.println("selected: " + selected);
+
+                if(isClicked && selected == before)
+                {
+                    ar.remove(selected);
+                }
                 repaint();
             }
         }
@@ -121,8 +165,10 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
         }
         else if(mode == Mode.SelectAndMove)
         {
+            if(selected != -1){
             Rectangle selectedRec = new Rectangle(ar.get(selected).getX(), ar.get(selected).getY(), ar.get(selected).getW(), ar.get(selected).getH());
-            if(selectedRec.contains(new Point(e.getX(),e.getY()))){
+            if(selectedRec.contains(new Point(e.getX(),e.getY())))
+            {
                 //#1 마우스 버튼 누름
                 //사각형내 마우스 클릭 상대 좌표를 구함
                 //현재 마우스 스크린 좌표에서 사각형 위치 좌표의 차이를 구함
@@ -130,8 +176,9 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
                 offY = e.getY() - selectedRec.y;
 
                 //드래그 시작을 표시
-                if(isClicked)
+                if (isClicked)
                     isDragged = true;
+            }
 
             }
         }

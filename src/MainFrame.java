@@ -11,6 +11,7 @@ public class MainFrame extends JFrame implements ActionListener
     Container contentPane;
     JButton b1;
     JButton b2;
+    JButton b3;
     RectangleEditor re;
 
     MainFrame()
@@ -22,10 +23,13 @@ public class MainFrame extends JFrame implements ActionListener
         re = new RectangleEditor();
         b1 = new JButton("선택");
         b2 = new JButton("그리기");
+        b3 = new JButton("삭제");
         b1.addActionListener(this);
         b2.addActionListener(this);
+        b3.addActionListener(this);
         contentPane.add(b1,BorderLayout.NORTH);
         contentPane.add(b2,BorderLayout.SOUTH);
+        contentPane.add(b3,BorderLayout.EAST);
         contentPane.add(re,BorderLayout.CENTER);
 
         setSize(800, 800);
@@ -48,6 +52,10 @@ public class MainFrame extends JFrame implements ActionListener
         else if(obj == b2)
         {
             re.changeMode(RectangleEditor.Mode.Draw);
+        }
+        else if(obj == b3)
+        {
+            re.changeMode(RectangleEditor.Mode.Remove);
         }
     }
 }

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * Created by HyeRyeongSong on 2017. 5. 10..
@@ -30,22 +31,23 @@ public class ContentPane extends JFrame
         contentPane.add(jMenuBar, BorderLayout.NORTH);
         contentPane.add(jPanel, BorderLayout.CENTER);
 
+
         JToolBar jToolBar = new JToolBar();
         jToolBar.setBackground(color);
         jToolBar.setLayout(new FlowLayout(FlowLayout.LEADING));
-        jToolBar.add(new JButton("새로 만들기"));
-        jToolBar.add(new JButton("열기"));
-        jToolBar.add(new JButton("저장"));
-        jToolBar.add(new JButton("다른 이름으로 저장"));
-        jToolBar.add(new JButton(".java 피일 생성"));
-        jToolBar.add(new JButton("닫기"));
+        jToolBar.add(newAction);
+        jToolBar.add(openAction);
+        jToolBar.add(saveAction);
+        jToolBar.add(saveasAction);
+        jToolBar.add(createJavaFileAction);
+        jToolBar.add(closeAction);
 
         jPanel.add(jToolBar, BorderLayout.NORTH);
 
         JPanel attributePane = new JPanel(new GridLayout(7, 2, 2, 5));
         attributePane.add(new JLabel("시작 x 좌표"), 0);
         attributePane.add(new JTextField(), 1);
-        attributePane.add(new JLabel("시작 y 좌표"),2);
+        attributePane.add(new JLabel("시작 y 좌표"), 2);
         attributePane.add(new JTextField(), 3);
         attributePane.add(new JLabel("너비"), 4);
         attributePane.add(new JTextField(), 5);
@@ -72,6 +74,69 @@ public class ContentPane extends JFrame
         setVisible(true);
 
     }
+
+
+    ImageIcon newIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/new.png"));
+    ImageIcon openIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/open.png"));
+    ImageIcon saveIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/save.png"));
+    ImageIcon saveasIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/saveas.png"));
+    ImageIcon createjavafileIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/create_java_file.png"));
+    ImageIcon closeIcon = new ImageIcon(
+            ContentPane.class.getResource("resource/close.png"));
+
+    Action newAction = new AbstractAction("New", newIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("New File");
+        }
+    };
+    Action openAction = new AbstractAction("Open", openIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("Open File");
+        }
+    };
+    Action saveAction = new AbstractAction("Save", saveIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("Save File");
+        }
+    };
+    Action saveasAction = new AbstractAction("Save", saveasIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("Save File");
+        }
+    };
+    Action createJavaFileAction = new AbstractAction("CreateJavaFile", createjavafileIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("Create Java File");
+        }
+    };
+    Action closeAction = new AbstractAction("Close", closeIcon)
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            System.out.println("Close");
+        }
+    };
 
 
     public static void main(String[] args)

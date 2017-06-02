@@ -8,6 +8,8 @@ public class ContentPane extends JFrame
 {
     ContentPane()
     {
+        Color color = new Color(171, 202, 220);
+        color.darker();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Container contentPane = getContentPane();
@@ -15,6 +17,8 @@ public class ContentPane extends JFrame
         contentPane.setLayout(new BorderLayout());
 
         JMenuBar jMenuBar = new JMenuBar();
+        jMenuBar.setBackground(color);
+        jMenuBar.setLayout(new FlowLayout(FlowLayout.LEADING));
         jMenuBar.add(new JMenu("새로 만들기"));
         jMenuBar.add(new JMenu("열기"));
         jMenuBar.add(new JMenu("저장"));
@@ -27,6 +31,8 @@ public class ContentPane extends JFrame
         contentPane.add(jPanel, BorderLayout.CENTER);
 
         JToolBar jToolBar = new JToolBar();
+        jToolBar.setBackground(color);
+        jToolBar.setLayout(new FlowLayout(FlowLayout.LEADING));
         jToolBar.add(new JButton("새로 만들기"));
         jToolBar.add(new JButton("열기"));
         jToolBar.add(new JButton("저장"));
@@ -57,11 +63,12 @@ public class ContentPane extends JFrame
         attributePane.add(new JTextField(), 13);
 
         JPanel editorPane = new JPanel(null);
+        editorPane.setBackground(Color.WHITE);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, attributePane, editorPane);
         jPanel.add(splitPane, BorderLayout.CENTER);
 
-        setSize(900, 600);
+        setSize(900, 500);
         setVisible(true);
 
     }

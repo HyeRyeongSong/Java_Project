@@ -291,10 +291,9 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     public void mouseMoved(MouseEvent e) {
         if(mode == Mode.ChangeSize)
         {
-            if(isClicked)
+            if(isClicked && selected != -1)
             {
                 Rectangle selectedRec = new Rectangle(ar.get(selected).getX(), ar.get(selected).getY(), ar.get(selected).getW(), ar.get(selected).getH());
-                double side = 0;
 
                 if(e.getX() > selectedRec.getX() + selectedRec.getWidth() - 10 && e.getX() < selectedRec.getX() + selectedRec.getWidth() + 10)
                     setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));

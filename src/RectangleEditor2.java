@@ -8,11 +8,13 @@ import java.util.ArrayList;
 /**
  * Created by m2j97 on 2017-06-01.
  */
-public class RectangleEditor extends JComponent implements MouseListener, MouseMotionListener
+public class RectangleEditor2 extends JComponent implements MouseListener, MouseMotionListener
 {
 
     private Rectangle box; //그려질 사각형 영역
     private ArrayList<AttributeElement> ar;  //저장될 사각형들의 속성 정보
+
+    private JLabel jl;
 
     private int x;
     private int y;
@@ -28,24 +30,27 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     private int selected;
     private Mode mode;  //현재 에디터의 모드
 
+    private JPanel jp;
+
     enum Mode{
         Draw, SelectAndMove, ChangeSize, Remove
     }
 
-    public RectangleEditor()
+    public RectangleEditor2(JPanel jp)
     {
         ar = new ArrayList<>();  //사각형 속성 배열 생성
 
         //현재 마우스 상태 저장
         reset();
 
-        recColor = Color.BLUE;  //사각형 색상
+        recColor = Color.DARK_GRAY;  //사각형 색상
         mode = Mode.Draw;  //초기 모드: 그리기
-
 
         //마우스 리스너 등록
         addMouseListener(this);
         addMouseMotionListener(this);
+
+        this.jp = jp;
     }
 
     public void changeMode(Mode m)
@@ -78,14 +83,23 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
         {
             box = new Rectangle(x,y,w,h);
             g.setColor(recColor);
-            g.drawRect(box.x, box.y, box.width, box.height);
-            for(int i=0; i<ar.size(); i++) {
-                double x = ar.get(i).getX();
-                double y = ar.get(i).getY();
-                double w = ar.get(i).getW();
-                double h = ar.get(i).getH();
-                g.drawRect((int)x, (int)y,(int)w, (int)h);
+            g.fillRect(box.x, box.y, box.width, box.height);
+            for(int i=0; i < ar.size(); i++)
+            {
+                int x = ar.get(i).getX();
+                int y = ar.get(i).getY();
+                int w = ar.get(i).getW();
+                int h = ar.get(i).getH();
+                jl = new JLabel("Hello");
+                jl.setLocation(x, y);
+                jl.setSize(w, h);
+                jl.setOpaque(true);
+                jl.setBackground(recColor);
+                jp.add(jl);
+                ar.add(new AttributeElement(x, y, w, h));
+                System.out.println("JLabel 생성: " + ar.size());
             }
+
         }
         else if(mode == Mode.SelectAndMove || mode == Mode.Remove || mode == Mode.ChangeSize)
         {
@@ -111,6 +125,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     @Override
     public void mouseClicked(MouseEvent e)
     {
+
         System.out.println("Mouse - x: " + e.getX() + " y: " +e.getY());
         if(mode == Mode.SelectAndMove)
         {
@@ -152,7 +167,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
                 repaint();
             }
         }
-        else if(mode ==Mode.ChangeSize)
+        else if(mode == Mode.ChangeSize)
         {
             selected = -1;
             for(int i = 0; i < ar.size(); i++)
@@ -174,6 +189,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     @Override
     public void mousePressed(MouseEvent e)
     {
+        System.out.println("MousePressed");
         if(mode == Mode.Draw)
         {
             x = y = w = h = 0;
@@ -225,12 +241,11 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     @Override
     public void mouseReleased(MouseEvent e)
     {
+        System.out.println("MouseReleased");
         if(mode == Mode.Draw)
         {
-            isDragged = false;
             repaint();
-            ar.add(new AttributeElement(x,y,w,h));
-            System.out.println(ar.size());
+            isDragged = false;
         }
         else if (mode == Mode.SelectAndMove)
         {
@@ -247,6 +262,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
     @Override
     public void mouseDragged(MouseEvent e)
     {
+        System.out.println("MouseDragged");
         if(mode == Mode.Draw)
         {
             if(isDragged)

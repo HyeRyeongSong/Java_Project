@@ -30,6 +30,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     private int before;
     private boolean selected;
     private Mode mode;  //현재 에디터의 모드
+    private boolean isClickedLabel;
 
     enum Mode{
         Draw, SelectAndMove, ChangeSize, Remove
@@ -70,6 +71,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         isDragged = false;
         isWidDragged = false;
         ishiDragged = false;
+        isClickedLabel = false;
     }
 
     public void createLabel()
@@ -160,8 +162,23 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         if(mode == Mode.Draw)
         {
             x = y = w = h = 0;
-            x = e.getX();
-            y = e.getY();
+            Class c = e.getComponent().getClass();
+            System.out.println(c.getName());
+
+            if(ear.getSize()>0 && c.getName().equals("javax.swing.JLabel"))
+            {
+                JLabel tmp = (JLabel) e.getComponent();
+                x = tmp.getX() + e.getX();
+                y = tmp.getY() + e.getY();
+                w = tmp.getX();
+                h = tmp.getY();
+                isClickedLabel = true;
+            }
+            else
+            {
+                x = e.getX();
+                y = e.getY();
+            }
             System.out.println("x: " + x + ", y: " + y);
             isDragged = true;
         }
@@ -208,10 +225,18 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         System.out.println("MouseReleased");
         if(mode == Mode.Draw)
         {
-            w = e.getX() - x;
-            h = e.getY() - y;
-            if(!selected)
-             createLabel();
+            if(isClickedLabel)
+            {
+                w = w + e.getX() - x;
+                h = h + e.getY() - y;
+                isClickedLabel = false;
+            }
+            else
+            {
+                w = e.getX() - x;
+                h = e.getY() - y;
+            }
+            createLabel();
             isDragged = false;
         }
         else if (mode == Mode.SelectAndMove)

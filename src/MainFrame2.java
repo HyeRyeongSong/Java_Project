@@ -22,7 +22,15 @@ public class MainFrame2 extends JFrame implements ActionListener
         contentPane = getContentPane();
         setLayout(new BorderLayout());
         jp = new RectangleEditor2();
-        add(jp,BorderLayout.CENTER);
+       // add(jp, BorderLayout.CENTER);
+
+        JPanel jp2 = new JPanel();
+        JPanel jp3 = new JPanel();
+        add(jp3,BorderLayout.CENTER);
+        jp3.setLayout(new BorderLayout());
+        jp3.add(jp2,BorderLayout.NORTH);
+        jp3.add(jp,BorderLayout.CENTER);
+
 
         b1 = new JButton("이동");
         b2 = new JButton("그리기");
@@ -33,11 +41,18 @@ public class MainFrame2 extends JFrame implements ActionListener
         b2.addActionListener(this);
         b3.addActionListener(this);
         b4.addActionListener(this);
-
+/*
         add(b1,BorderLayout.NORTH);
         add(b2,BorderLayout.SOUTH);
         add(b3,BorderLayout.EAST);
         add(b4,BorderLayout.WEST);
+*/
+
+        jp2.add(b1);
+        jp2.add(b2);
+        jp2.add(b3);
+        jp2.add(b4);
+
 
         setSize(1000, 800);
         setVisible(true);

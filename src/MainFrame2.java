@@ -39,7 +39,7 @@ public class MainFrame2 extends JFrame implements ActionListener
         add(b3,BorderLayout.EAST);
         add(b4,BorderLayout.WEST);
 
-        setSize(800, 800);
+        setSize(1000, 800);
         setVisible(true);
     }
 

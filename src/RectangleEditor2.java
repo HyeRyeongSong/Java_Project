@@ -27,8 +27,9 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     private Color recColor;  //사각형 색깔상태
     private int offX;
     private int offY;  //마우스 오프셋좌표
-    private int selected;
-    private boolean selectedd;
+    private int selectedNum;
+    private int before;
+    private boolean selected;
     private Mode mode;  //현재 에디터의 모드
 
     enum Mode{
@@ -42,7 +43,8 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
 
         //현재 마우스 상태 저장
         reset();
-        selectedd = false;
+        selectedNum = -1;
+        selected = false;
         isClicked = false;
 
         recColor = Color.GRAY;  //사각형 색상
@@ -66,24 +68,20 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         w = 0;
         h = 0;
         isDragged = false;
-        selected = -1;
         isWidDragged = false;
         ishiDragged = false;
-
-        jl = null;
     }
 
     public void createLabel()
     {
-        jl = new JLabel();
-        jl.addMouseListener(this);
-        add(jl);
-        jl.setLocation(x, y);
-        jl.setSize(w, h);
-        jl.setOpaque(true);
-        jl.setBackground(recColor);
-        jl = null;
-        ar.add(new AttributeElement(x, y, w, h));
+        JLabel j = new JLabel();
+        j.addMouseListener(this);
+        add(j);
+        j.setLocation(x, y);
+        j.setSize(w, h);
+        j.setOpaque(true);
+        j.setBackground(recColor);//이미 하나가 선택된 상태에서 그리기 모드 시작하고 다시 되돌아오면 null상태임
+        ar.add(new AttributeElement(x, y, w, h));////
         System.out.println("JLabel 생성: " + ar.size());
     }
 
@@ -98,56 +96,60 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     @Override
     public void mouseClicked(MouseEvent e)
     {
+        System.out.println("MouseClicked");
         System.out.println("Mouse - x: " + e.getX() + " y: " +e.getY());
+
         if (mode != Mode.Draw)
         {
             if(e.getComponent() != this)
             {
                 JLabel cur = (JLabel) e.getComponent();
-                if (isClicked)
+
+                if(selected)
                 {
-                    cur.setBackground(Color.GRAY);
-                    revalidate();
-                    repaint();
-                    selectedd = false;
-                    isClicked = false;
+                    if(cur.getBackground() == Color.BLUE)
+                    {
+                        cur.setBackground(Color.GRAY);
+                        revalidate();
+                        repaint();
+                        selected = false;
+                        isClicked = false;
+                    }
                 }
                 else
                 {
-                    if (!selectedd)
-                    {
-                        cur.setBackground(Color.BLUE);
-                        revalidate();
-                        repaint();
-                        selectedd = true;
-                        isClicked = true;
-                        jl = cur;
-                    }
+                    cur.setBackground(Color.BLUE);
+                    revalidate();
+                    repaint();
+                    selected = true;
+                    isClicked = true;
+                    jl = cur;
                 }
             }
             else
                 System.out.println("빈공간 클릭");
 
-            int before = selected;
-            selected = -1;
+            selectedNum = -1;
             AttributeElement cur;
             for(int i = 0; i < ar.size(); i++)
             {
                 cur = new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight());
                 if (equalElement(ar.get(i), cur))
-                    selected = i;
+                    selectedNum = i;
             }
-            System.out.println("Label selected: " + selected);
+            System.out.println("Label selectedNum: " + selectedNum);
             System.out.println("Label before: " + before);
 
-            if(mode == Mode.Remove && selected == before && selected!=-1)
+            if(mode == Mode.Remove && selectedNum == before && selectedNum!=-1)
             {
-                ar.remove(selected);
+                ar.remove(selectedNum);////
                 remove(jl);
                 revalidate();
                 repaint();
-                selected = -1;
+                selectedNum = -1;
             }
+
+            before = selectedNum;
         }
     }
 
@@ -165,7 +167,8 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         }
         else if(mode == Mode.SelectAndMove)
         {
-            if(selectedd)
+            System.out.println("selectedNum: " + selectedNum);
+            if(selected)
             {
                 if (jl.contains(new Point(e.getX(), e.getY())))
                 {
@@ -183,7 +186,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         }
         else if(mode == Mode.ChangeSize)
         {
-            if(selectedd)
+            if(selected)
             {
                 if(e.getX() > jl.getX() + jl.getWidth() - 10 && e.getX() < jl.getX() + jl.getWidth() + 10)
                 {
@@ -215,8 +218,8 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             if (isDragged)
             {
                 jl.setLocation(e.getX() - offX, e.getY() - offY);
-                ar.get(selected).setX(e.getX() - offX);
-                ar.get(selected).setY(e.getY() - offY);
+                ar.get(selectedNum).setX(e.getX() - offX);////
+                ar.get(selectedNum).setY(e.getY() - offY);////
                 revalidate();
                 repaint();
                 isDragged = false;
@@ -227,7 +230,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             if(isWidDragged)
             {
                 jl.setSize(e.getX() - jl.getX(), jl.getHeight());
-                ar.get(selected).setW(jl.getWidth());
+                ar.get(selectedNum).setW(jl.getWidth());////
                 revalidate();
                 repaint();
                 isWidDragged = false;
@@ -235,7 +238,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             else if(ishiDragged)
             {
                 jl.setSize(jl.getWidth(), e.getY() - jl.getY());
-                ar.get(selected).setH(jl.getHeight());
+                ar.get(selectedNum).setH(jl.getHeight());////
                 revalidate();
                 repaint();
                 ishiDragged = false;
@@ -245,7 +248,9 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     }
 
     @Override
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {
+        System.out.println("x: "+ e.getX() + " y: " + e.getY());
+    }
     @Override
     public void mouseEntered(MouseEvent e) {}
     @Override
@@ -254,9 +259,9 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     public void mouseMoved(MouseEvent e) {
         if(mode == Mode.ChangeSize)
         {
-            if(isClicked && selected != -1)
+            if(isClicked && selectedNum != -1)
             {
-                Rectangle selectedRec = new Rectangle(ar.get(selected).getX(), ar.get(selected).getY(), ar.get(selected).getW(), ar.get(selected).getH());
+                Rectangle selectedRec = new Rectangle(ar.get(selectedNum).getX(), ar.get(selectedNum).getY(), ar.get(selectedNum).getW(), ar.get(selectedNum).getH());
 
                 if(e.getX() > selectedRec.getX() + selectedRec.getWidth() - 10 && e.getX() < selectedRec.getX() + selectedRec.getWidth() + 10)
                     setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));

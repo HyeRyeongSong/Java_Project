@@ -38,4 +38,9 @@ public class ElementArray
         ar.get(index).setW(w);
         ar.get(index).setH(h);
     }
+
+    public int getSize()
+    {
+        return ar.size();
+    }
 }

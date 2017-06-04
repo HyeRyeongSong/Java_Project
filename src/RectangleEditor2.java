@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 
 /**
  * Created by m2j97 on 2017-06-01.
@@ -12,7 +11,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
 {
 
     private Rectangle box; //그려질 사각형 영역
-    private ArrayList<AttributeElement> ar;  //저장될 사각형들의 속성 정보
+    private ElementArray ear;  //저장될 사각형들의 속성 정보
 
     private JLabel jl;
 
@@ -38,7 +37,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
 
     public RectangleEditor2()
     {
-        ar = new ArrayList<>();  //사각형 속성 배열 생성
+        ear = new ElementArray();  //사각형 속성 배열 생성
         setLayout(null);
 
         //현재 마우스 상태 저장
@@ -81,8 +80,8 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         j.setSize(w, h);
         j.setOpaque(true);
         j.setBackground(recColor);//이미 하나가 선택된 상태에서 그리기 모드 시작하고 다시 되돌아오면 null상태임
-        ar.add(new AttributeElement(x, y, w, h));////
-        System.out.println("JLabel 생성: " + ar.size());
+        ear.addElement(x, y, w, h);////
+        System.out.println("JLabel 생성: " + ear.getSize());
     }
 
     public boolean equalElement(AttributeElement e1, AttributeElement e2)
@@ -131,10 +130,10 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
 
             selectedNum = -1;
             AttributeElement cur;
-            for(int i = 0; i < ar.size(); i++)
+            for(int i = 0; i < ear.getSize(); i++)
             {
                 cur = new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight());
-                if (equalElement(ar.get(i), cur))
+                if (equalElement(ear.getElement(i), cur))
                     selectedNum = i;
             }
             System.out.println("Label selectedNum: " + selectedNum);
@@ -142,7 +141,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
 
             if(mode == Mode.Remove && selectedNum == before && selectedNum!=-1)
             {
-                ar.remove(selectedNum);////
+                ear.removeElement(selectedNum);////
                 remove(jl);
                 revalidate();
                 repaint();
@@ -218,8 +217,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             if (isDragged)
             {
                 jl.setLocation(e.getX() - offX, e.getY() - offY);
-                ar.get(selectedNum).setX(e.getX() - offX);////
-                ar.get(selectedNum).setY(e.getY() - offY);////
+                ear.setElementLocation(selectedNum,e.getX() - offX, e.getY() - offY);
                 revalidate();
                 repaint();
                 isDragged = false;
@@ -230,7 +228,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             if(isWidDragged)
             {
                 jl.setSize(e.getX() - jl.getX(), jl.getHeight());
-                ar.get(selectedNum).setW(jl.getWidth());////
+                ear.setElementSize(selectedNum, e.getX() - jl.getX(), jl.getHeight());
                 revalidate();
                 repaint();
                 isWidDragged = false;
@@ -238,7 +236,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             else if(ishiDragged)
             {
                 jl.setSize(jl.getWidth(), e.getY() - jl.getY());
-                ar.get(selectedNum).setH(jl.getHeight());////
+                ear.setElementSize(selectedNum, jl.getWidth(), e.getY() - jl.getY());
                 revalidate();
                 repaint();
                 ishiDragged = false;
@@ -261,11 +259,10 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         {
             if(isClicked && selectedNum != -1)
             {
-                Rectangle selectedRec = new Rectangle(ar.get(selectedNum).getX(), ar.get(selectedNum).getY(), ar.get(selectedNum).getW(), ar.get(selectedNum).getH());
-
-                if(e.getX() > selectedRec.getX() + selectedRec.getWidth() - 10 && e.getX() < selectedRec.getX() + selectedRec.getWidth() + 10)
+                AttributeElement ae = ear.getElement(selectedNum);
+                if(e.getX() > ae.getX() + ae.getW() - 10 && e.getX() < ae.getX() + ae.getW() + 10)
                     setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
-                else if(e.getY() > selectedRec.getY() + selectedRec.getHeight() - 10 && e.getY() < selectedRec.getY() + selectedRec.getHeight() + 10)
+                else if(e.getY() > ae.getY() + ae.getH() - 10 && e.getY() < ae.getY() + ae.getH() + 10)
                     setCursor(Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR));
                 else
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));

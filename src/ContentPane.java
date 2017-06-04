@@ -65,32 +65,16 @@ public class ContentPane extends JFrame implements ActionListener
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        JPanel attributePane = new JPanel(new GridLayout(7, 2, 2, 5));
-        //"attributePane[3]"에 부착된 'Swing 컴포넌트'
-        attributePane.add(new JLabel("시작 x 좌표"), 0);
-        attributePane.add(new JTextField(), 1);
-        attributePane.add(new JLabel("시작 y 좌표"), 2);
-        attributePane.add(new JTextField(), 3);
-        attributePane.add(new JLabel("너비"), 4);
-        attributePane.add(new JTextField(), 5);
-        attributePane.add(new JLabel("높이"), 6);
-        attributePane.add(new JTextField(), 7);
-        attributePane.add(new JLabel("컴포넌트의 텍스트 속성값"), 8);
-        attributePane.add(new JTextField(), 9);
-        attributePane.add(new JLabel("컴포넌트 타입"), 10);
+        AttributePane attributePane = new AttributePane();
 
-        JComboBox jComboBox = new JComboBox();
-
-        attributePane.add(jComboBox, 11);
-
-        attributePane.add(new JLabel("컴포넌트 변수명"), 12);
-        attributePane.add(new JTextField(), 13);
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
         jp = new RectangleEditor2();
+        jp.setAttributePane(attributePane);
+        attributePane.setEditorPane(jp);
         JPanel jp2 = new JPanel();
         JPanel editorPane = new JPanel();
         editorPane.setLayout(new BorderLayout());

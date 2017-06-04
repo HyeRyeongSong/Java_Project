@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,11 @@ public class ElementArray
     public void addElement(int x, int y, int w, int h)
     {
         ar.add(new AttributeElement(x, y, w, h));
+    }
+
+    public void addElement(JLabel jl)
+    {
+        ar.add(new AttributeElement((int)jl.getX(), (int)jl.getY(), (int)jl.getWidth(), (int)jl.getHeight()));
     }
 
     public AttributeElement getElement(int index)

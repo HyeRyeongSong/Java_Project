@@ -9,9 +9,8 @@ import java.awt.event.MouseMotionListener;
  */
 public class RectangleEditor2 extends JPanel implements MouseListener, MouseMotionListener
 {
-
-    private Rectangle box; //그려질 사각형 영역
     private ElementArray ear;  //저장될 사각형들의 속성 정보
+    private AttributePane ap;
 
     private JLabel jl;
 
@@ -83,7 +82,8 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         j.setSize(w, h);
         j.setOpaque(true);
         j.setBackground(recColor);//이미 하나가 선택된 상태에서 그리기 모드 시작하고 다시 되돌아오면 null상태임
-        ear.addElement(x, y, w, h);////
+        ear.addElement(j);////
+        ap.setAttribute(ear.getElement(ear.getSize()-1)); //////////////////////////////////////////////////////////////////////
         System.out.println("JLabel 생성: " + ear.getSize());
     }
 
@@ -126,6 +126,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
                     selected = true;
                     isClicked = true;
                     jl = cur;
+                    ap.setAttribute(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight()));
                 }
             }
             else
@@ -245,6 +246,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             {
                 jl.setLocation(e.getX() - offX, e.getY() - offY);
                 ear.setElementLocation(selectedNum,e.getX() - offX, e.getY() - offY);
+                ap.setAttribute(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight()));
                 revalidate();
                 repaint();
                 isDragged = false;
@@ -256,6 +258,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             {
                 jl.setSize(e.getX() - jl.getX(), jl.getHeight());
                 ear.setElementSize(selectedNum, e.getX() - jl.getX(), jl.getHeight());
+                ap.setAttribute(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight()));
                 revalidate();
                 repaint();
                 isWidDragged = false;
@@ -264,6 +267,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
             {
                 jl.setSize(jl.getWidth(), e.getY() - jl.getY());
                 ear.setElementSize(selectedNum, jl.getWidth(), e.getY() - jl.getY());
+                ap.setAttribute(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight()));
                 revalidate();
                 repaint();
                 ishiDragged = false;
@@ -295,5 +299,10 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         }
+    }
+
+    public void setAttributePane(AttributePane e)
+    {
+        ap = e;
     }
 }

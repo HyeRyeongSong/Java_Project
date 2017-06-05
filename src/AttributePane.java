@@ -65,8 +65,18 @@ public class AttributePane extends JPanel implements ActionListener
         y.setText(Integer.toString(e.getY()));
         w.setText(Integer.toString(e.getW()));
         h.setText(Integer.toString(e.getH()));
-        text.setText("text");
-        var.setText("var");
+        text.setText(e.getText());
+        var.setText(e.getVar());
+    }
+
+    public void setNoneAttribute()
+    {
+        x.setText("0");
+        y.setText("0");
+        w.setText("0");
+        h.setText("0");
+        text.setText("");
+        var.setText("");
     }
 
     @Override

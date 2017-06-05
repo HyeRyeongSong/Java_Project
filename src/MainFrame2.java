@@ -69,7 +69,7 @@ public class MainFrame2 extends JFrame implements ActionListener
 
         if(obj == b1)
         {
-            jp.changeMode(RectangleEditor2.Mode.SelectAndMove);
+            jp.changeMode(RectangleEditor2.Mode.Move);
         }
         else if(obj == b2)
         {

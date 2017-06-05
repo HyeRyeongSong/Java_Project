@@ -12,6 +12,7 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b2;
     private final JButton b3;
     private final JButton b4;
+    private final JButton b5;
 
     ContentPane()
     {
@@ -85,19 +86,22 @@ public class ContentPane extends JFrame implements ActionListener
 
 
         b1 = new JButton("그리기");
-        b2 = new JButton("이동");
-        b3 = new JButton("삭제");
+        b2 = new JButton("선택");
+        b3 = new JButton("이동");
         b4 = new JButton("크기 수정");
+        b5 = new JButton("삭제");
 
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
         b4.addActionListener(this);
+        b5.addActionListener(this);
 
         jp2.add(b1);
         jp2.add(b2);
         jp2.add(b3);
         jp2.add(b4);
+        jp2.add(b5);
         ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
 
@@ -194,15 +198,19 @@ public class ContentPane extends JFrame implements ActionListener
         }
         else if(obj == b2)
         {
-            jp.changeMode(RectangleEditor2.Mode.SelectAndMove);
+            jp.changeMode(RectangleEditor2.Mode.Select);
         }
         else if(obj == b3)
         {
-            jp.changeMode(RectangleEditor2.Mode.Remove);
+            jp.changeMode(RectangleEditor2.Mode.Move);
         }
         else if(obj == b4)
         {
             jp.changeMode(RectangleEditor2.Mode.ChangeSize);
+        }
+        else if(obj == b5)
+        {
+            jp.changeMode(RectangleEditor2.Mode.Remove);
         }
     }
 }

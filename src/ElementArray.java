@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class ElementArray
 {
     private ArrayList<AttributeElement> ar;
+    private int num;
+
     private RectangleEditor2 re;
     private AttributePane ap;
-
-    private int num;
 
     public ElementArray()
     {
@@ -31,7 +31,6 @@ public class ElementArray
         ar.add(new AttributeElement(x, y, w, h, num));
         num++;
     }
-
 
     public void addElement(JLabel jl)
     {
@@ -78,7 +77,17 @@ public class ElementArray
 
     public void changeElement(int x, int y, int w, int h, String text, String type, String var)
     {
-        AttributeElement n = new AttributeElement(x, y, w, h, text, "hello", var);
+        String newVar = var;
+        int i;
+
+        for(i = 0; i < ar.size(); i++)
+            if(ar.get(i).getVar().equals(newVar))
+                break;
+
+        if(i!=ar.size())
+            newVar = ar.get(re.getSelectedNum()).getVar();
+
+        AttributeElement n = new AttributeElement(x, y, w, h, text, "hello", newVar);
         ar.set(re.getSelectedNum(), n);
         re.getSelectedJLabel().setLocation(x,y);
         re.getSelectedJLabel().setSize(w,h);

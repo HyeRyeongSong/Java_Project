@@ -7,30 +7,19 @@ public class AttributeElement
     private int y;
     private int w;
     private int h;
-//    private String text;
-//    private String type;
-//    private String var;
+    private String text;
+    private String type;
+    private String var;
 
-    public AttributeElement()
-    {
-        x = 0;
-        y = 0;
-        w = 0;
-        h = 0;
-//        text = "";
-//        type = "";
-//        var = "";
-    }
-
-    public AttributeElement(int x, int y, int w, int h)
+    public AttributeElement(int x, int y, int w, int h, int index)
     {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-//        this.text = text;
+        text = "";
 //        this.type = type;
-//        this.var = var;
+        var = "Component" + Integer.toString(index);
     }
 
     public int getX()
@@ -60,10 +49,15 @@ public class AttributeElement
     public void setW(int w) { this.w = w; }
 
     public void setH(int h) { this.h = h;}
-/*
+
     public String getText()
     {
         return text;
+    }
+
+    public void setText(String text)
+    {
+        this.text = text;
     }
 
     public String getType()
@@ -71,9 +65,18 @@ public class AttributeElement
         return type;
     }
 
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
     public String getVar()
     {
         return var;
     }
-    */
+
+    public void setVar(String var)
+    {
+        this.var = var;
+    }
 }

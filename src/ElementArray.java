@@ -15,12 +15,12 @@ public class ElementArray
 
     public void addElement(int x, int y, int w, int h)
     {
-        ar.add(new AttributeElement(x, y, w, h));
+        ar.add(new AttributeElement(x, y, w, h, ar.size()));
     }
 
     public void addElement(JLabel jl)
     {
-        ar.add(new AttributeElement((int)jl.getX(), (int)jl.getY(), (int)jl.getWidth(), (int)jl.getHeight()));
+        ar.add(new AttributeElement((int)jl.getX(), (int)jl.getY(), (int)jl.getWidth(), (int)jl.getHeight(), ar.size()));
     }
 
     public AttributeElement getElement(int index)

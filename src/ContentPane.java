@@ -1,10 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //JFrame을 상속받아 작성한 "윈도우"
-public class ContentPane extends JFrame
+public class ContentPane extends JFrame implements ActionListener
 {
+
+    private final RectangleEditor2 jp;
+    private final JButton b1;
+    private final JButton b2;
+    private final JButton b3;
+    private final JButton b4;
+
     ContentPane()
     {
         Color color = new Color(171, 202, 220);
@@ -57,30 +65,40 @@ public class ContentPane extends JFrame
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        JPanel attributePane = new JPanel(new GridLayout(7, 2, 2, 5));
-        //"attributePane[3]"에 부착된 'Swing 컴포넌트'
-        attributePane.add(new JLabel("시작 x 좌표"), 0);
-        attributePane.add(new JTextField(), 1);
-        attributePane.add(new JLabel("시작 y 좌표"), 2);
-        attributePane.add(new JTextField(), 3);
-        attributePane.add(new JLabel("너비"), 4);
-        attributePane.add(new JTextField(), 5);
-        attributePane.add(new JLabel("높이"), 6);
-        attributePane.add(new JTextField(), 7);
-        attributePane.add(new JLabel("컴포넌트의 텍스트 속성값"), 8);
-        attributePane.add(new JTextField(), 9);
-        attributePane.add(new JLabel("컴포넌트 타입"), 10);
+        AttributePane attributePane = new AttributePane();
 
-        JComboBox jComboBox = new JComboBox();
-
-        attributePane.add(jComboBox, 11);
-
-        attributePane.add(new JLabel("컴포넌트 변수명"), 12);
-        attributePane.add(new JTextField(), 13);
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
-        JPanel editorPane = new JPanel(null);
+
+        /////////////////////////////////////////////////////////editorPane 추가 부분
+        jp = new RectangleEditor2();
+        jp.setAttributePane(attributePane);
+        attributePane.setEditorPane(jp);
+        JPanel jp2 = new JPanel();
+        JPanel editorPane = new JPanel();
+        jp2.setOpaque(true);
+        jp2.setBackground(Color.LIGHT_GRAY);
+        editorPane.setLayout(new BorderLayout());
+        editorPane.add(jp2,BorderLayout.NORTH);
+        editorPane.add(jp,BorderLayout.CENTER);
+
+
+        b1 = new JButton("그리기");
+        b2 = new JButton("이동");
+        b3 = new JButton("삭제");
+        b4 = new JButton("크기 수정");
+
+        b1.addActionListener(this);
+        b2.addActionListener(this);
+        b3.addActionListener(this);
+        b4.addActionListener(this);
+
+        jp2.add(b1);
+        jp2.add(b2);
+        jp2.add(b3);
+        jp2.add(b4);
+        ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
 
         //"jPanel[1]"의 "BorderLayout.CENTER"에 들어갈 "splitPane[2]"
@@ -90,7 +108,7 @@ public class ContentPane extends JFrame
         //"jPanel[1]"에 "splitPane[2]"을 부착한다
         jPanel.add(splitPane, BorderLayout.CENTER);
 
-        setSize(900, 500);
+        setSize(1000, 800);
         setVisible(true);
 
     }
@@ -163,5 +181,28 @@ public class ContentPane extends JFrame
     public static void main(String[] args)
     {
         new ContentPane();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        Object obj = e. getSource();
+
+        if(obj == b1)
+        {
+            jp.changeMode(RectangleEditor2.Mode.Draw);
+        }
+        else if(obj == b2)
+        {
+            jp.changeMode(RectangleEditor2.Mode.SelectAndMove);
+        }
+        else if(obj == b3)
+        {
+            jp.changeMode(RectangleEditor2.Mode.Remove);
+        }
+        else if(obj == b4)
+        {
+            jp.changeMode(RectangleEditor2.Mode.ChangeSize);
+        }
     }
 }

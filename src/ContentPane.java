@@ -13,6 +13,7 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b3;
     private final JButton b4;
     private final JButton b5;
+    private final ElementArray ea;
 
     ContentPane()
     {
@@ -25,6 +26,8 @@ public class ContentPane extends JFrame implements ActionListener
         Container contentPane = getContentPane();
         contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setLayout(new BorderLayout());
+
+        ea = new ElementArray();////////////////////////////////////////////////////
 
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
@@ -66,18 +69,17 @@ public class ContentPane extends JFrame implements ActionListener
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        AttributePane attributePane = new AttributePane();
+        AttributePane attributePane = new AttributePane(ea);
 
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
-        jp = new RectangleEditor2();
-        jp.setAttributePane(attributePane);
-        attributePane.setEditorPane(jp);
+        jp = new RectangleEditor2(ea);
         JPanel jp2 = new JPanel();
         JPanel editorPane = new JPanel();
+        ea.setPane(attributePane, jp);
         jp2.setOpaque(true);
         jp2.setBackground(Color.LIGHT_GRAY);
         editorPane.setLayout(new BorderLayout());

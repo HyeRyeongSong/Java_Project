@@ -21,7 +21,7 @@ public class MainFrame2 extends JFrame implements ActionListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         contentPane = getContentPane();
         setLayout(new BorderLayout());
-        jp = new RectangleEditor2();
+        //jp = new RectangleEditor2();
        // add(jp, BorderLayout.CENTER);
 
         JPanel jp2 = new JPanel();

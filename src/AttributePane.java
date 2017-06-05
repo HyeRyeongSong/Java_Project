@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  */
 public class AttributePane extends JPanel implements ActionListener
 {
-    private RectangleEditor2 re;
+    private ElementArray ea;
 
     private JTextField x;
     private JTextField y;
@@ -20,7 +20,7 @@ public class AttributePane extends JPanel implements ActionListener
 
     private JButton jb;
 
-    public AttributePane()
+    public AttributePane(ElementArray ea)
     {
         //"attributePane[3]"에 부착된 'Swing 컴포넌트'
         x = new JTextField();
@@ -31,6 +31,7 @@ public class AttributePane extends JPanel implements ActionListener
         type = new JComboBox();
         var = new JTextField();
         jb = new JButton("적용");
+        this.ea = ea;
 
         setLayout(new BorderLayout());
         JPanel editor = new JPanel(new GridLayout(7, 2, 2, 5));
@@ -51,15 +52,11 @@ public class AttributePane extends JPanel implements ActionListener
         editor.add(type, 11);
         editor.add(new JLabel("컴포넌트 변수명"), 12);
         editor.add(var, 13);
+
+        jb.addActionListener(this);
     }
 
-    public void setEditorPane(RectangleEditor2 e)
-    {
-        //에디터페인 정보 실시간으로 받기 위해 필드로 저장
-        re = e;
-    }
-
-    public void setAttribute(AttributeElement e)
+    public void printAttribute(AttributeElement e)
     {
         x.setText(Integer.toString(e.getX()));
         y.setText(Integer.toString(e.getY()));
@@ -69,13 +66,14 @@ public class AttributePane extends JPanel implements ActionListener
         var.setText(e.getVar());
     }
 
-    public void setNoneAttribute()
+    public void printNoneAttribute()
     {
         x.setText("0");
         y.setText("0");
         w.setText("0");
         h.setText("0");
         text.setText("");
+        //type.setSelectedItem(///);
         var.setText("");
     }
 
@@ -83,7 +81,8 @@ public class AttributePane extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         //변경된 속성 적용
-        re.revalidate();
-        re.repaint();
+        ea.changeElement(Integer.parseInt(x.getText()), Integer.parseInt(y.getText()), Integer.parseInt(w.getText()), Integer.parseInt(h.getText()), text.getText(), "hello", var.getText());
+
+        //(String)type.getSelectedItem();
     }
 }

@@ -17,9 +17,20 @@ public class AttributeElement
         this.y = y;
         this.w = w;
         this.h = h;
-        text = "";
+        text = "None";
 //        this.type = type;
         var = "Component" + Integer.toString(index);
+    }
+
+    public AttributeElement(int x, int y, int w, int h, String text, String type, String var)
+    {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.text = text;
+        this.type = type;
+        this.var = var;
     }
 
     public int getX()
@@ -55,28 +66,14 @@ public class AttributeElement
         return text;
     }
 
-    public void setText(String text)
-    {
-        this.text = text;
-    }
-
     public String getType()
     {
         return type;
     }
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
 
     public String getVar()
     {
         return var;
-    }
-
-    public void setVar(String var)
-    {
-        this.var = var;
     }
 }

@@ -106,4 +106,13 @@ public class ElementArray
         addElement(jl);////
         System.out.println("JLabel 생성: " + getSize());
     }
+
+    public void clear()
+    {
+        ar.clear();
+        re.clear();
+        num = 0;
+        re.revalidate();
+        re.repaint();
+    }
 }

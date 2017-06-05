@@ -140,6 +140,7 @@ public class ContentPane extends JFrame implements ActionListener
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("New File");
+            ea.clear();
         }
     };
     Action openAction = new AbstractAction("Open", openIcon)

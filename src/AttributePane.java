@@ -81,7 +81,11 @@ public class AttributePane extends JPanel implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         //변경된 속성 적용
-        ea.changeElement(Integer.parseInt(x.getText()), Integer.parseInt(y.getText()), Integer.parseInt(w.getText()), Integer.parseInt(h.getText()), text.getText(), "hello", var.getText());
+        int X = Integer.parseInt(x.getText());
+        int Y = Integer.parseInt(y.getText());
+        int W = Integer.parseInt(w.getText());
+        int H = Integer.parseInt(h.getText());
+        ea.changeElement(X, Y, W, H, text.getText(), "hello", var.getText());
 
         //(String)type.getSelectedItem();
     }

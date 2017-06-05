@@ -44,6 +44,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         selected = false;
         isClicked = false;
         isClickedLabel = false;
+        jl = null;
 
         recColor = Color.GRAY;  //사각형 색상
         mode = Mode.Draw;  //초기 모드: 그리기
@@ -67,6 +68,16 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         isDragged = false;
         isWidDragged = false;
         isheiDragged = false;
+    }
+
+    public void clear(){
+        removeAll();
+        reset();
+        selectedNum = -1;
+        selected = false;
+        isClicked = false;
+        isClickedLabel = false;
+        jl = null;
     }
 
     public int getSelectedNum()

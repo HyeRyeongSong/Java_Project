@@ -77,6 +77,8 @@ public class ContentPane extends JFrame implements ActionListener
         attributePane.setEditorPane(jp);
         JPanel jp2 = new JPanel();
         JPanel editorPane = new JPanel();
+        jp2.setOpaque(true);
+        jp2.setBackground(Color.LIGHT_GRAY);
         editorPane.setLayout(new BorderLayout());
         editorPane.add(jp2,BorderLayout.NORTH);
         editorPane.add(jp,BorderLayout.CENTER);

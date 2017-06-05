@@ -18,7 +18,7 @@ public class AttributeElement
         this.w = w;
         this.h = h;
         text = "None";
-//        this.type = type;
+        this.type = "JLabel";
         var = "Component" + Integer.toString(index);
     }
 

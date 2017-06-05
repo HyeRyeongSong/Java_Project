@@ -78,6 +78,7 @@ public class ElementArray
     public void changeElement(int x, int y, int w, int h, String text, String type, String var)
     {
         String newVar = var;
+        String newType = type;
         int i;
 
         for(i = 0; i < ar.size(); i++)
@@ -87,10 +88,16 @@ public class ElementArray
         if(i!=ar.size())
             newVar = ar.get(re.getSelectedNum()).getVar();
 
-        AttributeElement n = new AttributeElement(x, y, w, h, text, "hello", newVar);
+        if(newType.equals("None"))
+            newType = ar.get(re.getSelectedNum()).getType();
+
+
+        AttributeElement n = new AttributeElement(x, y, w, h, text, newType, newVar);
         ar.set(re.getSelectedNum(), n);
         re.getSelectedJLabel().setLocation(x,y);
         re.getSelectedJLabel().setSize(w,h);
+
+        ap.printAttribute(ar.get(re.getSelectedNum()));
         System.out.println("배열 사이즈:" + ar.size());
     }
 
@@ -111,6 +118,7 @@ public class ElementArray
     {
         ar.clear();
         re.clear();
+        ap.printNoneAttribute();
         num = 0;
         re.revalidate();
         re.repaint();

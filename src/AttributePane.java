@@ -38,6 +38,10 @@ public class AttributePane extends JPanel implements ActionListener
         add(editor,BorderLayout.CENTER);
         add(jb, BorderLayout.SOUTH);
 
+        type.addItem("None");
+        type.addItem("JLabel");
+        type.addItem("JButton");
+
         editor.add(new JLabel("시작 x 좌표"), 0);
         editor.add(x, 1);
         editor.add(new JLabel("시작 y 좌표"), 2);
@@ -63,6 +67,7 @@ public class AttributePane extends JPanel implements ActionListener
         w.setText(Integer.toString(e.getW()));
         h.setText(Integer.toString(e.getH()));
         text.setText(e.getText());
+        type.setSelectedItem(e.getType());
         var.setText(e.getVar());
     }
 
@@ -73,7 +78,7 @@ public class AttributePane extends JPanel implements ActionListener
         w.setText("0");
         h.setText("0");
         text.setText("");
-        //type.setSelectedItem(///);
+        type.setSelectedItem("");
         var.setText("");
     }
 
@@ -85,8 +90,7 @@ public class AttributePane extends JPanel implements ActionListener
         int Y = Integer.parseInt(y.getText());
         int W = Integer.parseInt(w.getText());
         int H = Integer.parseInt(h.getText());
-        ea.changeElement(X, Y, W, H, text.getText(), "hello", var.getText());
+        ea.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
 
-        //(String)type.getSelectedItem();
     }
 }

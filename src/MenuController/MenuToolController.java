@@ -5,16 +5,17 @@ import GUI.ElementArray;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 
 public class MenuToolController
 {
+    private ElementArray ea;
     private CreateJSonFile createJSonFile;
     private CreateJavaFile createJavaFile;
     private JFileChooser jsonFileChooser;
     private JFileChooser javaFileChooser;
-    private ElementArray ea;
 
     private File currentFile;
 
@@ -48,9 +49,8 @@ public class MenuToolController
 
     public void openFile() throws ParseException
     {
-        makeNewFile();
-        int returnVal = jsonFileChooser.showOpenDialog(new JFrame());
-        if(returnVal == JFileChooser.APPROVE_OPTION) {
+        int returnedValue = jsonFileChooser.showOpenDialog(new JFrame());
+        if(returnedValue == JFileChooser.APPROVE_OPTION) {
             currentFile = jsonFileChooser.getSelectedFile();
             try {
                 createJSonFile.parseJSonFile(currentFile.getPath());
@@ -65,12 +65,57 @@ public class MenuToolController
     }
 
     public void saveFile() {
+        //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
+        if(currentFile == null) {
+            this.saveasFile();
+            return;
+        }
+        //String으로 변환된 ElementArray의 내용들을 dataElements에 저장
+        String dataElements = createJSonFile.MakeJSonFile();
+        try {
+            String filePath = currentFile.getPath();
+            if(!(filePath.endsWith(".json")) && !(filePath.endsWith(".JSON"))) {
+                filePath += ".json";
+            }
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(dataElements);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveasFile() {
+        int returnedValue = jsonFileChooser.showSaveDialog(new JFrame());
+        if(returnedValue == JFileChooser.APPROVE_OPTION) {
+            currentFile = jsonFileChooser.getSelectedFile();
+            this.saveFile();
+        }
     }
 
-    public void makeJavaFile() {
+    public void createJavaFile() {
+        File javaFile;
+        int returnedValue = javaFileChooser.showSaveDialog(new JFrame());
+        if (returnedValue == JFileChooser.APPROVE_OPTION) {
+            javaFile = javaFileChooser.getSelectedFile();
+            try {
+                String filePath = javaFile.getPath();
+                if(!(filePath.endsWith(".java")) && !(filePath.endsWith(".JAVA"))) {
+                    filePath += ".java";
+                }
+                String fileName = javaFile.getName();
+                fileName = fileName.substring(0, fileName.length() - 5);
+                String data = createJavaFile.MakeJavaFile(fileName);
+                FileWriter fileWriter = new FileWriter(fileName);
+                fileWriter.write(data);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void exitProgram()

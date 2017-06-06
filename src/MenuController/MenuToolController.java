@@ -7,15 +7,14 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 
 public class MenuToolController
 {
-    private ElementArray ea;
     private CreateJSonFile createJSonFile;
     private CreateJavaFile createJavaFile;
     private JFileChooser jsonFileChooser;
     private JFileChooser javaFileChooser;
+    private ElementArray ea;
 
     private File currentFile;
 
@@ -44,10 +43,9 @@ public class MenuToolController
     public void makeNewFile()
     {
         ea.clear();
-        currentFile = null;
     }
 
-    public void openFile() throws ParseException
+    public void openFile()
     {
         int returnedValue = jsonFileChooser.showOpenDialog(new JFrame());
         if(returnedValue == JFileChooser.APPROVE_OPTION) {
@@ -62,10 +60,15 @@ public class MenuToolController
                 e.printStackTrace();
             }
         }
+        //파일 불러와서 ArrayList 저장하는 코드
+        //전검 필요
+        ea.loadComponent();
     }
 
-    public void saveFile() {
-        //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
+    //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
+    public void saveFile()
+    {
+        //ArrayList 저장하는 코드
         if(currentFile == null) {
             this.saveasFile();
             return;
@@ -86,9 +89,12 @@ public class MenuToolController
         }
     }
 
-    public void saveasFile() {
+    //ArrayList 저장하는 코드
+    public void saveasFile()
+    {
         int returnedValue = jsonFileChooser.showSaveDialog(new JFrame());
-        if(returnedValue == JFileChooser.APPROVE_OPTION) {
+        if (returnedValue == JFileChooser.APPROVE_OPTION)
+        {
             currentFile = jsonFileChooser.getSelectedFile();
             this.saveFile();
         }
@@ -115,7 +121,6 @@ public class MenuToolController
                 e.printStackTrace();
             }
         }
-
     }
 
     public void exitProgram()

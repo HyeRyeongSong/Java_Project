@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 
 /**
  * Created by HyeRyeongSong on 2017. 6. 6..
@@ -86,15 +85,7 @@ class MenuBar extends JMenuBar implements ActionListener
         }
         else if(obj == MenuBar.openFileItem)
         {
-            try
-            {
-                controller.openFile();
-            }
-            catch (ParseException e1)
-            {
-                e1.printStackTrace();
-            }
-
+            controller.openFile();
         }
         else if(obj == MenuBar.saveFileItem)
         {

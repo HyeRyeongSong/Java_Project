@@ -5,7 +5,6 @@ import MenuController.MenuToolController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.text.ParseException;
 
 /**
  * Created by HyeRyeongSong on 2017. 6. 6..
@@ -55,15 +54,8 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            try
-            {
-                controller.openFile();
-            }
-            catch (ParseException e1)
-            {
-                e1.printStackTrace();
-            }
-
+            //파일 불러오는 코드
+            controller.openFile();
         }
     };
     Action saveAction = new AbstractAction("Save", saveIcon)

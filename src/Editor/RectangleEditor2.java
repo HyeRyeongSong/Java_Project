@@ -1,3 +1,7 @@
+package Editor;
+
+import GUI.ElementArray;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -29,7 +33,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
     private Mode mode;  //현재 에디터의 모드
     private boolean isClickedLabel;
 
-    enum Mode{
+    public enum Mode{
         Draw, Select, Move, ChangeSize, Remove
     }
 

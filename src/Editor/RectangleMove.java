@@ -1,4 +1,4 @@
-/**
+package Editor; /**
  * Created by m2j97 on 2017-05-26.
  */
 
@@ -109,7 +109,7 @@ class RectangleMove extends JComponent implements MouseListener, MouseMotionList
 
         JFrame f = new JFrame("GUI BUILDER");
         f.setBounds(0,0,800,800);
-        f.add(new RectangleMove());
+        f.add(new Editor.RectangleMove());
         f.setVisible(true);
     }
     */

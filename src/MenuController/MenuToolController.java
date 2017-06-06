@@ -30,7 +30,6 @@ public class MenuToolController
 
         jsonFileChooser.setFileFilter(jsonFileExtensionFilter);
         javaFileChooser.setFileFilter(javaFileExtensionFilter);
-
     }
 
     public void makeNewFile() {

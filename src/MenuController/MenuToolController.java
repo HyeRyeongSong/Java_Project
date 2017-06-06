@@ -112,7 +112,6 @@ public class MenuToolController
                     filePath += ".java";
                 }
                 String fileName = javaFile.getName();
-                fileName = fileName.substring(0, fileName.length() - 5);
                 String dataElements = createJavaFile.MakeJavaFile(fileName);
                 FileWriter fileWriter = new FileWriter(filePath);
                 fileWriter.write(dataElements);

@@ -8,12 +8,12 @@ class CreateJavaFile
         StringBuilder fileContent = new StringBuilder(""
             + "import javax.swing.*;\n"
             + "import java.awt.*;\n\n"
-            + "public class " + name + " extend JFrame" + "{\n"
-            + "    public static void main(String[] args) \n"
+            + "public class " + name + " extends JFrame" + "{\n"
+            + "    " + name + "()\n"
             + "    {\n"
+            + "        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n"
             + "        Container contentPane = getContentPane();\n"
             + "        contentPane.setLayout(null);\n"
-            + "        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);\n"
             + "        setSize(800, 700);\n");
 
 
@@ -36,9 +36,13 @@ class CreateJavaFile
             fileContent.append("        contentPane.add(").append(ElementArray.getElement(i)
                     .getVar()).append(");\n");
         }
-        fileContent.append("        contentPane.setVisible(true);\n");
+        fileContent.append("        setSize(800, 700);\n");
+        fileContent.append("        setVisible(true);\n");
         fileContent.append("    }\n");
-        fileContent.append("}\n");
+        fileContent.append("    public static void main(String[] args)\n")
+                .append("    {\n").append("        ").append(name)
+                .append(" newObject = new ").append(name).append("();\n")
+                .append("    }\n").append("}");
         return fileContent.toString();
     }
 }

@@ -1,3 +1,7 @@
+package GUI;
+
+import Editor.AttributeElement;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

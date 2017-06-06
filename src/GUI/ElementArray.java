@@ -1,3 +1,8 @@
+package GUI;
+
+import Editor.AttributeElement;
+import Editor.RectangleEditor2;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,8 +13,8 @@ import java.util.ArrayList;
 public class ElementArray
 {
     private String FileName;
-    private ArrayList<AttributeElement> ar;
-    private int num;
+    private static ArrayList<AttributeElement> ar;
+    public static int num;
 
     private RectangleEditor2 re;
     private AttributePane ap;
@@ -38,20 +43,26 @@ public class ElementArray
         this.re = re;
         ap.printNoneAttribute();
     }
-/*
-    public void addElement(int x, int y, int w, int h)
+
+/*    public void addElement(int x, int y, int w, int h)
     {
-        ar.add(new AttributeElement(x, y, w, h, num));
+        ar.add(new Editor.AttributeElement(x, y, w, h, num));
         num++;
     }
 */
+    public static void addElement(int x, int y, int w, int h, String text, String type, String var)
+    {
+        ar.add(new AttributeElement(x, y, w, h, text, type, var));
+        num++;
+    }
+
     public void addElement(JLabel jl)
     {
         ar.add(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight(), num));
         num++;
     }
 
-    public AttributeElement getElement(int index)
+    public static AttributeElement getElement(int index)
     {
         return ar.get(index);
     }

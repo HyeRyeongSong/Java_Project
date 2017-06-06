@@ -1,3 +1,5 @@
+package Editor;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -53,7 +55,7 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     public void mouseReleased(MouseEvent e){
         isDragged = false;
         repaint();
-        //ar.add(new AttributeElement(x,y,w,h));
+        //ar.add(new Editor.AttributeElement(x,y,w,h));
         System.out.print(ar.size());
     }
 
@@ -83,7 +85,7 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     {
         JFrame f = new JFrame("GUI BUILDER");
         f.setBounds(0,0,800,800);
-        f.add(new RectangleDraw());
+        f.add(new Editor.RectangleDraw());
         f.setVisible(true);
     }
     */

@@ -1,6 +1,7 @@
 package GUI;
 
 import Editor.RectangleEditor2;
+import MenuController.MenuToolController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b4;
     private final JButton b5;
     private final ElementArray ea;
+    private MenuToolController controller;
     /*private final JMenuItem openNewItem;
     private final JMenuItem openFileItem;
     private final JMenuItem saveFileItem;
@@ -35,10 +37,18 @@ public class ContentPane extends JFrame implements ActionListener
         contentPane.setLayout(new BorderLayout());
 
         ea = new ElementArray();////////////////////////////////////////////////////
+        try
+        {
+            controller = new MenuToolController(ea);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
         setTitle(ea.getFileName());
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
-        MenuBar menuBar = new MenuBar();
+        MenuBar menuBar = new MenuBar(controller);
 
         //"최상위 컨테이너[0]"의 "BorderLayout.CENTER"에 들어갈 "jPanel[1]"
         //BorderLayout을 가지는 "jPanel[1]"
@@ -49,7 +59,7 @@ public class ContentPane extends JFrame implements ActionListener
 
 
         //"jPanel[1]"의 "BorderLayout.NORTH"에 들어갈 "툴바[2]"
-        ToolBar toolBar = new ToolBar();
+        ToolBar toolBar = new ToolBar(controller);
 
         //"jPanel[1]"에 "툴바[2]"를 부착한다
         jPanel.add(toolBar, BorderLayout.NORTH);

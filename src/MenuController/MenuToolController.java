@@ -1,8 +1,12 @@
 package MenuController;
 
+import GUI.ElementArray;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 
 public class MenuToolController
 {
@@ -10,13 +14,16 @@ public class MenuToolController
     private CreateJavaFile createJavaFile;
     private JFileChooser jsonFileChooser;
     private JFileChooser javaFileChooser;
+    private ElementArray ea;
 
-    private File selectedFile;
-    public MenuToolController() throws Exception {
+    private File currentFile;
+
+    public MenuToolController(ElementArray ea) throws Exception {
         createJSonFile = new CreateJSonFile();
         createJavaFile = new CreateJavaFile();
         jsonFileChooser = new JFileChooser();
         javaFileChooser = new JFileChooser();
+        this.ea = ea;
 
         jsonFileChooser.setCurrentDirectory(
             new File(System.getProperty("user.home") + "//" + "Desktop"));
@@ -30,19 +37,33 @@ public class MenuToolController
 
         jsonFileChooser.setFileFilter(jsonFileExtensionFilter);
         javaFileChooser.setFileFilter(javaFileExtensionFilter);
+
     }
 
-    public void makeNewFile() {
-    }
-
-    public void openFile()
+    public void makeNewFile()
     {
+        ea.clear();
+        currentFile = null;
+    }
+
+    public void openFile() throws ParseException
+    {
+        makeNewFile();
+        int returnVal = jsonFileChooser.showOpenDialog(new JFrame());
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            currentFile = jsonFileChooser.getSelectedFile();
+            try {
+                createJSonFile.parseJSonFile(currentFile.getPath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void saveFile() {
     }
 
-    public void saveAsFile() {
+    public void saveasFile() {
     }
 
     public void makeJavaFile() {

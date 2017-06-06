@@ -1,5 +1,7 @@
 package GUI;
 
+import MenuController.MenuToolController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,10 +11,12 @@ import java.awt.event.ActionEvent;
  */
 public class ToolBar extends JToolBar
 {
-    ToolBar()
+    MenuToolController controller;
+    ToolBar(MenuToolController controller)
     {
         //FlowLayout을 가지는 "툴바[2]"
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
+        this.controller = controller;
         //"툴바[2]"에 부착된 'Swing 컴포넌트'
         this.add(newAction);
         this.add(openAction);
@@ -42,6 +46,7 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
+            controller.makeNewFile();
         }
     };
     Action openAction = new AbstractAction("Open", openIcon)
@@ -82,6 +87,7 @@ public class ToolBar extends JToolBar
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("Close");
+            controller.exitProgram();
         }
     };
 

@@ -37,9 +37,9 @@ class CreateJSonFile
         return (jsonObject.toJSONString());
     }
 
-    void parseJSonFile(String target) throws ParseException, IOException {
+    void parseJSonFile(String address) throws ParseException, IOException {
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(target));
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(address));
         JSONArray jsonArray = (JSONArray) jsonObject.get("Elements");
 
         for (Object element : jsonArray) {

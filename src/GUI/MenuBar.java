@@ -1,5 +1,7 @@
 package GUI;
 
+import MenuController.MenuToolController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,8 +19,9 @@ class MenuBar extends JMenuBar implements ActionListener
     static JMenuItem saveDifFileItem;
     static JMenuItem saveJavaFileItem;
     static JMenuItem closeItem;
+    MenuToolController controller;
 
-    MenuBar()
+    MenuBar(MenuToolController controller)
     {
         Color color = new Color(171, 202, 220);
         color.darker();
@@ -27,6 +30,7 @@ class MenuBar extends JMenuBar implements ActionListener
         this.setBackground(color);
         //FlowLayout을 가지는 "메뉴바[1]"
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
+        this.controller = controller;  ////////////////////////////////////////////
         JMenu openMenu = new JMenu("열기(O)");
         openMenu.setMnemonic('O');
         //열기 메뉴 아이템
@@ -77,6 +81,7 @@ class MenuBar extends JMenuBar implements ActionListener
 
         if(obj == MenuBar.openNewItem)
         {
+            controller.makeNewFile();
         }
         else if(obj == MenuBar.openFileItem)
         {
@@ -96,7 +101,7 @@ class MenuBar extends JMenuBar implements ActionListener
         }
         else if(obj == MenuBar.closeItem)
         {
-            System.exit(0);
+            controller.exitProgram();
         }
 
 

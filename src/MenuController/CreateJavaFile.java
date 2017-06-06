@@ -17,12 +17,13 @@ class CreateJavaFile
 
 
         for(int i=0; i< ElementArray.num; ++i) {
-            fileContent.append("        ").append(ElementArray.getElement(i).getClass().getName())
-                    .append(" ").append(ElementArray.getElement(i).getVar()).append(" = new ")
-                    .append(ElementArray.getElement(i).getClass().getName()).append("();\n");
+            fileContent.append("        ").append("AttributeElement     ")
+                    .append(ElementArray.getElement(i).getVar())
+                    .append(" = new AttributeElement();\n");
             String strRec = ElementArray.getElement(i).getX() + ", "
                     + ElementArray.getElement(i).getY() + ", "
-                    + ElementArray.getElement(i).getW() + ", " + ElementArray.getElement(i).getH();
+                    + ElementArray.getElement(i).getW() + ", "
+                    + ElementArray.getElement(i).getH();
             fileContent.append("        ").append(ElementArray.getElement(i).getVar())
                     .append(".setBounds(").append(strRec).append(");\n");
 
@@ -32,6 +33,17 @@ class CreateJavaFile
 
             fileContent.append("        frame.add(").append(ElementArray.getElement(i)
                     .getVar()).append(");\n");
+
+            ElementArray.setElementLocation(i, ElementArray.getElement(i).getX(),
+                    ElementArray.getElement(i).getY());
+
+
+            fileContent.append("         ElementArray.setElementLocation(i, ElementArray.getElement(i).getX()"
+                                + "ElementArray.getElement(i).getY());\n");
+
+            fileContent.append("         ElementArray.setElementLocation(i, ElementArray.getElement(i).getW()"
+                    + "ElementArray.getElement(i).getH());\n");
+
         }
         fileContent.append("        frame.setVisible(true);\n");
         fileContent.append("    }\n");

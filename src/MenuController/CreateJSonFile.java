@@ -26,21 +26,10 @@ class CreateJSonFile
             element.put("yValue", attributeElement.getY());
             element.put("width", attributeElement.getW());
             element.put("height", attributeElement.getH());
+            element.put("text", attributeElement.getText());
             element.put("type", attributeElement.getType());
             element.put("var", attributeElement.getVar());
 
-            String type = attributeElement.getClass().getName();
-            switch (type) {
-                case "javax.swing.JButton":
-                    element.put("text", attributeElement.getText());
-                    break;
-                case "javax.swing.JLabel":
-                    element.put("text", attributeElement.getText());
-                    break;
-                default:
-                    element.put("text", attributeElement.getText());
-                    break;
-            }
             jsonArray.add(element);
         }
 

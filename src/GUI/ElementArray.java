@@ -72,13 +72,13 @@ public class ElementArray
         ar.remove(index);
     }
 
-    public void setElementLocation(int index, int x, int y)
+    public static void setElementLocation(int index, int x, int y)
     {
         ar.get(index).setX(x);
         ar.get(index).setY(y);
     }
 
-    public void setElementSize(int index, int w, int h)
+    public static void setElementSize(int index, int w, int h)
     {
         ar.get(index).setW(w);
         ar.get(index).setH(h);

@@ -11,7 +11,7 @@ class CreateJavaFile
             + "public class " + name + " extend JFrame" + "{\n"
             + "    public static void main(String[] args) \n"
             + "    {\n"
-            + "        Container contentPane = getContentPane();"
+            + "        Container contentPane = getContentPane();\n"
             + "        contentPane.setLayout(null);\n"
             + "        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);\n"
             + "        setSize(800, 700);\n");

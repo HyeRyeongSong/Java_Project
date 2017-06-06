@@ -7,30 +7,30 @@ public class AttributeElement
     private int y;
     private int w;
     private int h;
-//    private String text;
-//    private String type;
-//    private String var;
+    private String text;
+    private String type;
+    private String var;
 
-    public AttributeElement()
-    {
-        x = 0;
-        y = 0;
-        w = 0;
-        h = 0;
-//        text = "";
-//        type = "";
-//        var = "";
-    }
-
-    public AttributeElement(int x, int y, int w, int h)
+    public AttributeElement(int x, int y, int w, int h, int index)
     {
         this.x = x;
         this.y = y;
         this.w = w;
         this.h = h;
-//        this.text = text;
-//        this.type = type;
-//        this.var = var;
+        text = "";
+        this.type = "JLabel";
+        var = "Component" + Integer.toString(index);
+    }
+
+    public AttributeElement(int x, int y, int w, int h, String text, String type, String var)
+    {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.text = text;
+        this.type = type;
+        this.var = var;
     }
 
     public int getX()
@@ -60,7 +60,7 @@ public class AttributeElement
     public void setW(int w) { this.w = w; }
 
     public void setH(int h) { this.h = h;}
-/*
+
     public String getText()
     {
         return text;
@@ -71,9 +71,9 @@ public class AttributeElement
         return type;
     }
 
+
     public String getVar()
     {
         return var;
     }
-    */
 }

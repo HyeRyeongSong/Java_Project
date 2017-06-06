@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
  */
 public class AttributePane extends JPanel implements ActionListener
 {
-    private RectangleEditor2 re;
+    private ElementArray ea;
 
     private JTextField x;
     private JTextField y;
@@ -20,7 +20,7 @@ public class AttributePane extends JPanel implements ActionListener
 
     private JButton jb;
 
-    public AttributePane()
+    public AttributePane(ElementArray ea)
     {
         //"attributePane[3]"에 부착된 'Swing 컴포넌트'
         x = new JTextField();
@@ -31,11 +31,16 @@ public class AttributePane extends JPanel implements ActionListener
         type = new JComboBox();
         var = new JTextField();
         jb = new JButton("적용");
+        this.ea = ea;
 
         setLayout(new BorderLayout());
         JPanel editor = new JPanel(new GridLayout(14, 1, 2, 5));
         add(editor,BorderLayout.CENTER);
         add(jb, BorderLayout.SOUTH);
+
+        type.addItem("None");
+        type.addItem("JLabel");
+        type.addItem("JButton");
 
         editor.add(new JLabel("시작 x 좌표"), 0);
         editor.add(x, 1);
@@ -51,29 +56,41 @@ public class AttributePane extends JPanel implements ActionListener
         editor.add(type, 11);
         editor.add(new JLabel("컴포넌트 변수명"), 12);
         editor.add(var, 13);
+
+        jb.addActionListener(this);
     }
 
-    public void setEditorPane(RectangleEditor2 e)
-    {
-        //에디터페인 정보 실시간으로 받기 위해 필드로 저장
-        re = e;
-    }
-
-    public void setAttribute(AttributeElement e)
+    public void printAttribute(AttributeElement e)
     {
         x.setText(Integer.toString(e.getX()));
         y.setText(Integer.toString(e.getY()));
         w.setText(Integer.toString(e.getW()));
         h.setText(Integer.toString(e.getH()));
-        text.setText("text");
-        var.setText("var");
+        text.setText(e.getText());
+        type.setSelectedItem(e.getType());
+        var.setText(e.getVar());
+    }
+
+    public void printNoneAttribute()
+    {
+        x.setText("0");
+        y.setText("0");
+        w.setText("0");
+        h.setText("0");
+        text.setText("");
+        type.setSelectedItem("None");
+        var.setText("");
     }
 
     @Override
     public void actionPerformed(ActionEvent e)
     {
         //변경된 속성 적용
-        re.revalidate();
-        re.repaint();
+        int X = Integer.parseInt(x.getText());
+        int Y = Integer.parseInt(y.getText());
+        int W = Integer.parseInt(w.getText());
+        int H = Integer.parseInt(h.getText());
+        ea.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
+
     }
 }

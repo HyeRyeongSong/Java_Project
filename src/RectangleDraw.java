@@ -53,7 +53,7 @@ public class RectangleDraw extends JComponent implements MouseListener, MouseMot
     public void mouseReleased(MouseEvent e){
         isDragged = false;
         repaint();
-        ar.add(new AttributeElement(x,y,w,h));
+        //ar.add(new AttributeElement(x,y,w,h));
         System.out.print(ar.size());
     }
 

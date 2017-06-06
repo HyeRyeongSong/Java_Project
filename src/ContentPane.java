@@ -12,6 +12,8 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b2;
     private final JButton b3;
     private final JButton b4;
+    private final JButton b5;
+    private final ElementArray ea;
 
     ContentPane()
     {
@@ -24,6 +26,8 @@ public class ContentPane extends JFrame implements ActionListener
         Container contentPane = getContentPane();
         contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setLayout(new BorderLayout());
+
+        ea = new ElementArray();////////////////////////////////////////////////////
 
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
@@ -65,18 +69,17 @@ public class ContentPane extends JFrame implements ActionListener
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        AttributePane attributePane = new AttributePane();
+        AttributePane attributePane = new AttributePane(ea);
 
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
-        jp = new RectangleEditor2();
-        jp.setAttributePane(attributePane);
-        attributePane.setEditorPane(jp);
+        jp = new RectangleEditor2(ea);
         JPanel jp2 = new JPanel();
         JPanel editorPane = new JPanel();
+        ea.setPane(attributePane, jp);
         jp2.setOpaque(true);
         jp2.setBackground(Color.LIGHT_GRAY);
         jp.setBackground(Color.WHITE);
@@ -86,19 +89,22 @@ public class ContentPane extends JFrame implements ActionListener
 
 
         b1 = new JButton("그리기");
-        b2 = new JButton("이동");
-        b3 = new JButton("삭제");
+        b2 = new JButton("선택");
+        b3 = new JButton("이동");
         b4 = new JButton("크기 수정");
+        b5 = new JButton("삭제");
 
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
         b4.addActionListener(this);
+        b5.addActionListener(this);
 
         jp2.add(b1);
         jp2.add(b2);
         jp2.add(b3);
         jp2.add(b4);
+        jp2.add(b5);
         ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
 
@@ -135,6 +141,7 @@ public class ContentPane extends JFrame implements ActionListener
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("New File");
+            ea.clear();
         }
     };
     Action openAction = new AbstractAction("Open", openIcon)
@@ -195,15 +202,19 @@ public class ContentPane extends JFrame implements ActionListener
         }
         else if(obj == b2)
         {
-            jp.changeMode(RectangleEditor2.Mode.SelectAndMove);
+            jp.changeMode(RectangleEditor2.Mode.Select);
         }
         else if(obj == b3)
         {
-            jp.changeMode(RectangleEditor2.Mode.Remove);
+            jp.changeMode(RectangleEditor2.Mode.Move);
         }
         else if(obj == b4)
         {
             jp.changeMode(RectangleEditor2.Mode.ChangeSize);
+        }
+        else if(obj == b5)
+        {
+            jp.changeMode(RectangleEditor2.Mode.Remove);
         }
     }
 }

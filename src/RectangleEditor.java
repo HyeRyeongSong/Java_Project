@@ -229,7 +229,7 @@ public class RectangleEditor extends JComponent implements MouseListener, MouseM
         {
             isDragged = false;
             repaint();
-            ar.add(new AttributeElement(x,y,w,h));
+            //ar.addElement(new AttributeElement(x,y,w,h,));
             System.out.println(ar.size());
         }
         else if (mode == Mode.SelectAndMove)

@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 public class ElementArray
 {
+    private String FileName;
     private ArrayList<AttributeElement> ar;
     private int num;
 
@@ -16,7 +17,19 @@ public class ElementArray
     public ElementArray()
     {
         ar = new ArrayList<>();
+        FileName = "NoNamed";
         num = 0;
+    }
+
+    public String getFileName()
+    {
+        return FileName;
+    }
+
+    public String setDefaultFileName()
+    {
+        FileName = "NoNamed";
+        return FileName;
     }
 
     public void setPane(AttributePane ap, RectangleEditor2 re)
@@ -25,13 +38,13 @@ public class ElementArray
         this.re = re;
         ap.printNoneAttribute();
     }
-
+/*
     public void addElement(int x, int y, int w, int h)
     {
         ar.add(new AttributeElement(x, y, w, h, num));
         num++;
     }
-
+*/
     public void addElement(JLabel jl)
     {
         ar.add(new AttributeElement(jl.getX(), jl.getY(), jl.getWidth(), jl.getHeight(), num));
@@ -110,8 +123,9 @@ public class ElementArray
         jl.setSize(w, h);
         jl.setOpaque(true);
         jl.setBackground(Color.GRAY);
-        addElement(jl);////
+        addElement(jl);
         System.out.println("JLabel 생성: " + getSize());
+        testPrint();
     }
 
     public void clear()
@@ -122,5 +136,16 @@ public class ElementArray
         num = 0;
         re.revalidate();
         re.repaint();
+    }
+
+    public void testPrint()
+    {
+        for(int i = 0; i < ar.size(); i++)
+        {
+            System.out.println(i + "번째 속성정보-");
+            System.out.println("x: " + ar.get(i).getX() + " y: " + ar.get(i).getY());
+            System.out.println("w: " + ar.get(i).getW() + " h: " + ar.get(i).getH());
+            System.out.println("text: " + ar.get(i).getText() + " type: " + ar.get(i).getType() + " var: " + ar.get(i).getVar());
+        }
     }
 }

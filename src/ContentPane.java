@@ -14,6 +14,12 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b4;
     private final JButton b5;
     private final ElementArray ea;
+    private final JMenuItem openNewItem;
+    private final JMenuItem openFileItem;
+    private final JMenuItem saveFileItem;
+    private final JMenuItem saveDifFileItem;
+    private final JMenuItem saveJavaFileItem;
+    private final JMenuItem closeItem;
 
     ContentPane()
     {
@@ -28,20 +34,49 @@ public class ContentPane extends JFrame implements ActionListener
         contentPane.setLayout(new BorderLayout());
 
         ea = new ElementArray();////////////////////////////////////////////////////
-
+        setTitle(ea.getFileName());
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
         JMenuBar jMenuBar = new JMenuBar();
         jMenuBar.setBackground(color);
         //FlowLayout을 가지는 "메뉴바[1]"
         jMenuBar.setLayout(new FlowLayout(FlowLayout.LEADING));
+        JMenu openMenu = new JMenu("열기(O)");
+        openMenu.setMnemonic('O');
+        //열기 메뉴 아이템
+        openNewItem = new JMenuItem("새파일(N)");
+        openNewItem.setMnemonic('N');
+        openFileItem = new JMenuItem("파일 열기(F)");
+        openFileItem.setMnemonic('F');
+        openMenu.add(openNewItem);
+        openMenu.add(openFileItem);
+
+        JMenu saveMenu = new JMenu("저장(S)");
+        saveMenu.setMnemonic('S');
+        //저장 메뉴 아이템
+        saveFileItem = new JMenuItem("저장(P)");
+        saveFileItem.setMnemonic('P');
+        saveDifFileItem = new JMenuItem("다른 이름으로 저장(D)");
+        saveDifFileItem.setMnemonic('D');
+        saveJavaFileItem = new JMenuItem("JAVA 파일로 저장(J)");
+        saveJavaFileItem.setMnemonic('J');
+        saveMenu.add(saveFileItem);
+        saveMenu.add(saveDifFileItem);
+        saveMenu.add(saveJavaFileItem);
+
+        JMenu closeMenu = new JMenu("윈도우(W)");
+        closeMenu.setMnemonic('W');
+        //닫기 메뉴 아이템
+        closeItem = new JMenuItem("닫기(C)");
+        closeItem.setMnemonic('C');
+        closeMenu.add(closeItem);
+
         //"메뉴바[1]"에 부착된 'Swing 컴포넌트'
-        jMenuBar.add(new JMenu("새로 만들기"));
-        jMenuBar.add(new JMenu("열기"));
-        jMenuBar.add(new JMenu("저장"));
-        jMenuBar.add(new JMenu("다른 이름으로 저장"));
-        jMenuBar.add(new JMenu(".java 파일 생성"));
-        jMenuBar.add(new JMenu("닫기"));
+        jMenuBar.add(openMenu);
+        jMenuBar.add(saveMenu);
+        jMenuBar.add(closeMenu);
+
+
 
         //"최상위 컨테이너[0]"의 "BorderLayout.CENTER"에 들어갈 "jPanel[1]"
         //BorderLayout을 가지는 "jPanel[1]"
@@ -99,6 +134,13 @@ public class ContentPane extends JFrame implements ActionListener
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
+
+        openNewItem.addActionListener(this);
+        openFileItem.addActionListener(this);
+        saveFileItem.addActionListener(this);
+        saveDifFileItem.addActionListener(this);
+        saveJavaFileItem.addActionListener(this);
+        closeItem.addActionListener(this);
 
         jp2.add(b1);
         jp2.add(b2);
@@ -216,5 +258,33 @@ public class ContentPane extends JFrame implements ActionListener
         {
             jp.changeMode(RectangleEditor2.Mode.Remove);
         }
+        else if(obj == openNewItem)
+        {
+            ea.clear();
+            setTitle(ea.setDefaultFileName());
+        }
+        else if(obj == openFileItem)
+        {
+            //파일에서 데이터 ArrayList에 가져오는 코드
+            setTitle(ea.getFileName());
+        }
+        else if(obj == saveFileItem)
+        {
+
+        }
+        else if(obj == saveDifFileItem)
+        {
+
+        }
+        else if(obj == saveJavaFileItem)
+        {
+
+        }
+        else if(obj == closeItem)
+        {
+            System.exit(0);
+        }
+
+
     }
 }

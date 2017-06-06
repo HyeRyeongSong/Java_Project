@@ -55,7 +55,6 @@ public class ToolBar extends JToolBar
         public void actionPerformed(ActionEvent e)
         {
             System.out.println("Open File");
-            controller.makeNewFile(); //충돌 방지 리셋
             //파일 불러오는 코드
         }
     };

@@ -18,9 +18,9 @@ class CreateJavaFile
 
 
         for(int i=0; i< ElementArray.num; ++i) {
-            fileContent.append("        ").append(ElementArray.getElement(i).getVar())
+            fileContent.append("        ").append(ElementArray.getElement(i).getType())
                     .append(" ").append(ElementArray.getElement(i).getVar())
-                    .append(" = new ").append(ElementArray.getElement(i).getVar())
+                    .append(" = new ").append(ElementArray.getElement(i).getType())
                     .append("();\n");
             String strRec = ElementArray.getElement(i).getX() + ", "
                     + ElementArray.getElement(i).getY() + ", "

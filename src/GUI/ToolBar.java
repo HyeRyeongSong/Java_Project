@@ -24,17 +24,17 @@ public class ToolBar extends JToolBar
 
     //"툴바[2]"에 부착할 컴포넌트에 들어갈 이미지 아이콘들
     ImageIcon newIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/new.png"));
+            ContentPane.class.getResource("/resource/new.png"));
     ImageIcon openIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/open.png"));
+            ContentPane.class.getResource("/resource/open.png"));
     ImageIcon saveIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/save.png"));
+            ContentPane.class.getResource("/resource/save.png"));
     ImageIcon saveasIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/saveas.png"));
+            ContentPane.class.getResource("/resource/saveas.png"));
     ImageIcon createjavafileIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/create_java_file.png"));
+            ContentPane.class.getResource("/resource/create_java_file.png"));
     ImageIcon closeIcon = new ImageIcon(
-            ContentPane.class.getResource("resource/close.png"));
+            ContentPane.class.getResource("/resource/close.png"));
 
     //각 이미지 아이콘을 눌렀을 때의 Action 이벤트들
     Action newAction = new AbstractAction("New", newIcon)

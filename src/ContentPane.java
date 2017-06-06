@@ -79,6 +79,7 @@ public class ContentPane extends JFrame implements ActionListener
         JPanel editorPane = new JPanel();
         jp2.setOpaque(true);
         jp2.setBackground(Color.LIGHT_GRAY);
+        jp.setBackground(Color.WHITE);
         editorPane.setLayout(new BorderLayout());
         editorPane.add(jp2,BorderLayout.NORTH);
         editorPane.add(jp,BorderLayout.CENTER);
@@ -108,7 +109,7 @@ public class ContentPane extends JFrame implements ActionListener
         //"jPanel[1]"에 "splitPane[2]"을 부착한다
         jPanel.add(splitPane, BorderLayout.CENTER);
 
-        setSize(1000, 800);
+        setSize(800, 700);
         setVisible(true);
 
     }

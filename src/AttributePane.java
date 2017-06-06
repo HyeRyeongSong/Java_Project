@@ -33,7 +33,7 @@ public class AttributePane extends JPanel implements ActionListener
         jb = new JButton("적용");
 
         setLayout(new BorderLayout());
-        JPanel editor = new JPanel(new GridLayout(7, 2, 2, 5));
+        JPanel editor = new JPanel(new GridLayout(14, 1, 2, 5));
         add(editor,BorderLayout.CENTER);
         add(jb, BorderLayout.SOUTH);
 

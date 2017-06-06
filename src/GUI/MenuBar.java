@@ -103,8 +103,6 @@ class MenuBar extends JMenuBar implements ActionListener
         {
             controller.exitProgram();
         }
-
-
     }
 
 

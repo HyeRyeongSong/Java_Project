@@ -51,6 +51,7 @@ public class MenuToolController
         if(returnedValue == JFileChooser.APPROVE_OPTION) {
             currentFile = jsonFileChooser.getSelectedFile();
             try {
+                ea.clear();
                 createJSonFile.parseJSonFile(currentFile.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -112,15 +113,16 @@ public class MenuToolController
                 }
                 String fileName = javaFile.getName();
                 fileName = fileName.substring(0, fileName.length() - 5);
-                String data = createJavaFile.MakeJavaFile(fileName);
-                FileWriter fileWriter = new FileWriter(fileName);
-                fileWriter.write(data);
+                String dataElements = createJavaFile.MakeJavaFile(fileName);
+                FileWriter fileWriter = new FileWriter(filePath);
+                fileWriter.write(dataElements);
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
     }
 
     public void exitProgram()

@@ -61,7 +61,7 @@ public class MenuToolController
 
     public void makeJavaFile()
     {
-        CreateJavaFile.MakeJavaFile("Hello");
+
     }
 
     public void exitProgram()

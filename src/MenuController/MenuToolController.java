@@ -45,15 +45,23 @@ public class MenuToolController
 
     public void openFile()
     {
+        //파일 불러와서 ArrayList 저장하는 코드
+        ea.loadComponent();
     }
 
-    public void saveFile() {
+    public void saveFile()
+    {
+        //ArrayList 저장하는 코드
     }
 
-    public void saveAsFile() {
+    public void saveAsFile()
+    {
+        //ArrayList 저장하는 코드
     }
 
-    public void makeJavaFile() {
+    public void makeJavaFile()
+    {
+        CreateJavaFile.MakeJavaFile("Hello");
     }
 
     public void exitProgram()

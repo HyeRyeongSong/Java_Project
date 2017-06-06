@@ -18,6 +18,7 @@ public class ElementArray
 
     private RectangleEditor2 re;
     private AttributePane ap;
+    private JLabel jl;
 
     public ElementArray()
     {
@@ -127,15 +128,20 @@ public class ElementArray
 
     public void createLabel(int x, int y, int w, int h)
     {
-        JLabel jl = new JLabel();
+        paintLabel(x, y, w, h);
+        addElement(jl);
+        System.out.println("JLabel 생성: " + getSize());
+    }
+
+    public void paintLabel(int x, int y, int w, int h)
+    {
+        jl = new JLabel();
         jl.addMouseListener(re);
         re.add(jl);
         jl.setLocation(x, y);
         jl.setSize(w, h);
         jl.setOpaque(true);
         jl.setBackground(Color.GRAY);
-        addElement(jl);
-        System.out.println("JLabel 생성: " + getSize());
         testPrint();
     }
 
@@ -149,6 +155,15 @@ public class ElementArray
         re.repaint();
     }
 
+    public void loadComponent()
+    {
+        for(int i = 0; i < ar.size(); i++)
+        {
+            paintLabel(ar.get(i).getX(), ar.get(i).getY(), ar.get(i).getW(), ar.get(i).getH());
+        }
+    }
+
+
     public void testPrint()
     {
         for(int i = 0; i < ar.size(); i++)
@@ -158,5 +173,14 @@ public class ElementArray
             System.out.println("w: " + ar.get(i).getW() + " h: " + ar.get(i).getH());
             System.out.println("text: " + ar.get(i).getText() + " type: " + ar.get(i).getType() + " var: " + ar.get(i).getVar());
         }
+        System.out.println(ar.size());
+    }
+
+    public void testRemove()
+    {
+        re.clear();
+        re.revalidate();
+        re.repaint();
+        System.out.println(ar.size());
     }
 }

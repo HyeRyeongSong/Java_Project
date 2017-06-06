@@ -85,6 +85,7 @@ class MenuBar extends JMenuBar implements ActionListener
         }
         else if(obj == MenuBar.openFileItem)
         {
+            controller.makeNewFile(); //충돌 방지 리셋
             //파일에서 데이터 ArrayList에 가져오는 코드
         }
         else if(obj == MenuBar.saveFileItem)

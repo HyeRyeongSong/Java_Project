@@ -57,6 +57,10 @@ public class MenuToolController
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            catch (org.json.simple.parser.ParseException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 

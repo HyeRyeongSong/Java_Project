@@ -4,7 +4,7 @@ import GUI.ElementArray;
 
 class CreateJavaFile
 {
-    String make(String name) {
+    String MakeJavaFile(String name) {
         StringBuilder fileContent = new StringBuilder(""
             + "import javax.swing.*;\n\n"
             + "public class " + name + " {\n"

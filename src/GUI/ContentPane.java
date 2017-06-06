@@ -109,11 +109,11 @@ public class ContentPane extends JFrame implements ActionListener
 
 
 
-/*    public static void main(String[] args)
+    public static void main(String[] args)
     {
         new ContentPane();
     }
-*/
+
     @Override
     public void actionPerformed(ActionEvent e)
     {

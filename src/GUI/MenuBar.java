@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
  */
 class MenuBar extends JMenuBar implements ActionListener
 {
+
     static JMenuItem openNewItem;
     static JMenuItem openFileItem;
     static JMenuItem saveFileItem;

@@ -1,7 +1,7 @@
 package GUI;
 
 import Editor.AttributeElement;
-import Editor.RectangleEditor2;
+import Editor.RectangleEditor;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class ElementArray
     private static ArrayList<AttributeElement> ar;
     public static int num;
 
-    private RectangleEditor2 re;
+    private RectangleEditor re;
     private AttributePane ap;
     private JLabel jl;
 
@@ -38,7 +38,7 @@ public class ElementArray
         return FileName;
     }
 
-    public void setPane(AttributePane ap, RectangleEditor2 re)
+    public void setPane(AttributePane ap, RectangleEditor re)
     {
         this.ap = ap;
         this.re = re;

@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class ElementArray
 {
-    private String FileName;
+    public static String FileName;
     private static ArrayList<AttributeElement> ar;
     public static int num;
 
@@ -85,7 +85,7 @@ public class ElementArray
         ar.get(index).setH(h);
     }
 
-    public int getSize()
+    public static int getSize()
     {
         return ar.size();
     }

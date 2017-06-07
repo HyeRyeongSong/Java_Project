@@ -2,6 +2,9 @@ package MenuController;
 
 import GUI.ElementArray;
 
+/**
+ * Created by HyeRyeongSong on 2017. 6. 6..
+ */
 class CreateJavaFile
 {
     String MakeJavaFile(String name) {
@@ -17,7 +20,7 @@ class CreateJavaFile
             + "        setSize(800, 700);\n");
 
 
-        for(int i=0; i< ElementArray.num; ++i) {
+        for(int i=0; i< ElementArray.getSize(); ++i) {
             fileContent.append("        ").append(ElementArray.getElement(i).getType())
                     .append(" ").append(ElementArray.getElement(i).getVar())
                     .append(" = new ").append(ElementArray.getElement(i).getType())

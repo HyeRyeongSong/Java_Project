@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * Created by HyeRyeongSong on 2017. 6. 6..
+ */
 public class MenuToolController
 {
     private CreateJSonFile createJSonFile;

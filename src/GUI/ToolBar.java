@@ -87,7 +87,6 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Close");
             controller.exitProgram();
         }
     };

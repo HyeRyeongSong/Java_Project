@@ -59,5 +59,7 @@ class CreateJSonFile
                     (String)object.get("text"), (String)object.get("type"),
                     (String)object.get("var"));
         }
+
+        ElementArray.num -= ElementArray.getSize();
     }
 }

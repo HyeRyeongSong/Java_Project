@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public class ElementArray
 {
-    public static String FileName;
     private static ArrayList<AttributeElement> ar;
     public static int num;
 
@@ -23,7 +22,6 @@ public class ElementArray
     public ElementArray()
     {
         ar = new ArrayList<>();
-        FileName = "NoNamed";
         num = 0;
     }
 

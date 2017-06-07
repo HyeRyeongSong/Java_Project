@@ -46,6 +46,7 @@ public class MenuToolController
     public void makeNewFile()
     {
         ea.clear();
+        currentFile = null;
     }
 
     public void openFile()
@@ -65,7 +66,6 @@ public class MenuToolController
             }
         }
         //파일 불러와서 ArrayList 저장하는 코드
-        //전검 필요
         ea.loadComponent();
     }
 

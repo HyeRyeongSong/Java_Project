@@ -73,7 +73,6 @@ public class AttributeElement
         return type;
     }
 
-
     public String getVar()
     {
         return var;

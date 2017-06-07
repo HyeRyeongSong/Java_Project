@@ -8,6 +8,9 @@ import GUI.ElementArray;
 class CreateJavaFile
 {
     String MakeJavaFile(String name) {
+        if((name.endsWith(".java")) || (name.endsWith(".JAVA"))) {
+            name = name.substring(0, name.length()-5);
+        }
         StringBuilder fileContent = new StringBuilder(""
             + "import javax.swing.*;\n"
             + "import java.awt.*;\n\n"

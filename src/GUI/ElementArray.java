@@ -23,19 +23,8 @@ public class ElementArray
     public ElementArray()
     {
         ar = new ArrayList<>();
-        FileName = "SwingComponentBuiler";
+        FileName = "NoNamed";
         num = 0;
-    }
-
-    public String getFileName()
-    {
-        return FileName;
-    }
-
-    public String setDefaultFileName()
-    {
-        FileName = "SwingComponentBuiler";
-        return FileName;
     }
 
     public void setPane(AttributePane ap, RectangleEditor re)
@@ -45,12 +34,6 @@ public class ElementArray
         ap.printNoneAttribute();
     }
 
-/*    public void addElement(int x, int y, int w, int h)
-    {
-        ar.add(new Editor.AttributeElement(x, y, w, h, num));
-        num++;
-    }
-*/
     public static void addElement(int x, int y, int w, int h, String text, String type, String var)
     {
         ar.add(new AttributeElement(x, y, w, h, text, type, var));
@@ -173,14 +156,6 @@ public class ElementArray
             System.out.println("w: " + ar.get(i).getW() + " h: " + ar.get(i).getH());
             System.out.println("text: " + ar.get(i).getText() + " type: " + ar.get(i).getType() + " var: " + ar.get(i).getVar());
         }
-        System.out.println(ar.size());
-    }
-
-    public void testRemove()
-    {
-        re.clear();
-        re.revalidate();
-        re.repaint();
         System.out.println(ar.size());
     }
 }

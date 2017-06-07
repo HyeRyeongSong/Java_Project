@@ -1,7 +1,7 @@
-package GUI;
+package Model;
 
-import Editor.AttributeElement;
-import Editor.RectangleEditor;
+import View.AttributePane;
+import View.EditorPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,22 +12,20 @@ import java.util.ArrayList;
  */
 public class ElementArray
 {
-    public static String FileName;
     private static ArrayList<AttributeElement> ar;
     public static int num;
 
-    private RectangleEditor re;
+    private EditorPane re;
     private AttributePane ap;
     private JLabel jl;
 
     public ElementArray()
     {
         ar = new ArrayList<>();
-        FileName = "NoNamed";
         num = 0;
     }
 
-    public void setPane(AttributePane ap, RectangleEditor re)
+    public void setPane(AttributePane ap, EditorPane re)
     {
         this.ap = ap;
         this.re = re;
@@ -73,7 +71,7 @@ public class ElementArray
         return ar.size();
     }
 
-    public void setAttribute()
+    public void setNonAttribute()
     {
         ap.printNoneAttribute();
     }
@@ -120,7 +118,7 @@ public class ElementArray
     {
         jl = new JLabel();
         jl.addMouseListener(re);
-        re.add(jl);
+        re.getCanvas().add(jl);
         jl.setLocation(x, y);
         jl.setSize(w, h);
         jl.setOpaque(true);
@@ -134,8 +132,8 @@ public class ElementArray
         re.clear();
         ap.printNoneAttribute();
         num = 0;
-        re.revalidate();
-        re.repaint();
+        re.getCanvas().revalidate();
+        re.getCanvas().repaint();
     }
 
     public void loadComponent()

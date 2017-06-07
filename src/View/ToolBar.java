@@ -1,6 +1,6 @@
-package GUI;
+package View;
 
-import MenuController.MenuToolController;
+import Controller.MenuToolController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +71,7 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            controller.saveasFile();
+            controller.saveAsFile();
         }
     };
     Action createJavaFileAction = new AbstractAction("CreateJavaFile", createjavafileIcon)

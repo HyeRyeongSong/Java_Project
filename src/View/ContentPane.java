@@ -1,26 +1,18 @@
-package GUI;
+package View;
 
-import Editor.RectangleEditor;
-import MenuController.MenuToolController;
+import Controller.MenuToolController;
+import Model.ElementArray;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by HyeRyeongSong on 2017. 5. 27..
  */
 //JFrame을 상속받아 작성한 "윈도우"
-public class ContentPane extends JFrame implements ActionListener
+public class ContentPane extends JFrame
 {
-    private final RectangleEditor jp;
-    private final JButton b1;
-    private final JButton b2;
-    private final JButton b3;
-    private final JButton b4;
-    private final JButton b5;
-    private final ElementArray ea;
+    private final ElementArray ear;
     private MenuToolController controller;
 
     ContentPane()
@@ -33,10 +25,10 @@ public class ContentPane extends JFrame implements ActionListener
         contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setLayout(new BorderLayout());
 
-        ea = new ElementArray();////////////////////////////////////////////////////
+        ear = new ElementArray();
         try
         {
-            controller = new MenuToolController(ea);
+            controller = new MenuToolController(ear);
         }
         catch (Exception e)
         {
@@ -63,44 +55,17 @@ public class ContentPane extends JFrame implements ActionListener
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        AttributePane attributePane = new AttributePane(ea);
+        AttributePane attributePane = new AttributePane(ear);
 
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
-        jp = new RectangleEditor(ea);
-        JPanel jp2 = new JPanel();
-        JPanel editorPane = new JPanel();
-        ea.setPane(attributePane, jp);
-        jp2.setOpaque(true);
-        jp2.setBackground(Color.LIGHT_GRAY);
-        jp.setBackground(Color.WHITE);
-        editorPane.setLayout(new BorderLayout());
-        editorPane.add(jp2,BorderLayout.NORTH);
-        editorPane.add(jp,BorderLayout.CENTER);
-
-
-        b1 = new JButton("그리기");
-        b2 = new JButton("선택");
-        b3 = new JButton("이동");
-        b4 = new JButton("크기 수정");
-        b5 = new JButton("삭제");
-
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
-        b4.addActionListener(this);
-        b5.addActionListener(this);
-
-        jp2.add(b1);
-        jp2.add(b2);
-        jp2.add(b3);
-        jp2.add(b4);
-        jp2.add(b5);
+        EditorPane editorPane = new EditorPane(ear);
         ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
+        ear.setPane(attributePane, editorPane);
 
         //"jPanel[1]"의 "BorderLayout.CENTER"에 들어갈 "splitPane[2]"
         //"splitPane[2]"에 "attributePane[3]"과 "editorPane[3]"을 부착한다
@@ -114,37 +79,8 @@ public class ContentPane extends JFrame implements ActionListener
 
     }
 
-
-
     public static void main(String[] args)
     {
         new ContentPane();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e)
-    {
-        Object obj = e.getSource();
-
-        if(obj == b1)
-        {
-            jp.changeMode(RectangleEditor.Mode.Draw);
-        }
-        else if(obj == b2)
-        {
-            jp.changeMode(RectangleEditor.Mode.Select);
-        }
-        else if(obj == b3)
-        {
-            jp.changeMode(RectangleEditor.Mode.Move);
-        }
-        else if(obj == b4)
-        {
-            jp.changeMode(RectangleEditor.Mode.ChangeSize);
-        }
-        else if(obj == b5)
-        {
-            jp.changeMode(RectangleEditor.Mode.Remove);
-        }
     }
 }

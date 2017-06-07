@@ -1,6 +1,6 @@
-package MenuController;
+package Controller;
 
-import GUI.ElementArray;
+import Model.ElementArray;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -46,6 +46,7 @@ public class MenuToolController
     public void makeNewFile()
     {
         ea.clear();
+        currentFile = null;
     }
 
     public void openFile()
@@ -55,7 +56,7 @@ public class MenuToolController
             currentFile = jsonFileChooser.getSelectedFile();
             try {
                 ea.clear();
-                createJSonFile.parseJSonFile(currentFile.getPath());
+                createJSonFile.saveJSonFile(currentFile.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -65,16 +66,14 @@ public class MenuToolController
             }
         }
         //파일 불러와서 ArrayList 저장하는 코드
-        //전검 필요
         ea.loadComponent();
     }
 
     //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
     public void saveFile()
     {
-        //ArrayList 저장하는 코드
         if(currentFile == null) {
-            this.saveasFile();
+            this.saveAsFile();
             return;
         }
         //String으로 변환된 ElementArray의 내용들을 dataElements에 저장
@@ -93,8 +92,7 @@ public class MenuToolController
         }
     }
 
-    //ArrayList 저장하는 코드
-    public void saveasFile()
+    public void saveAsFile()
     {
         int returnedValue = jsonFileChooser.showSaveDialog(new JFrame());
         if (returnedValue == JFileChooser.APPROVE_OPTION)

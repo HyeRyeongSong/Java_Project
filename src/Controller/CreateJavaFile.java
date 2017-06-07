@@ -1,6 +1,6 @@
-package MenuController;
+package Controller;
 
-import GUI.ElementArray;
+import Model.ElementArray;
 
 /**
  * Created by HyeRyeongSong on 2017. 6. 6..
@@ -8,6 +8,9 @@ import GUI.ElementArray;
 class CreateJavaFile
 {
     String MakeJavaFile(String name) {
+        if((name.endsWith(".java")) || (name.endsWith(".JAVA"))) {
+            name = name.substring(0, name.length()-5);
+        }
         StringBuilder fileContent = new StringBuilder(""
             + "import javax.swing.*;\n"
             + "import java.awt.*;\n\n"
@@ -16,8 +19,7 @@ class CreateJavaFile
             + "    {\n"
             + "        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n"
             + "        Container contentPane = getContentPane();\n"
-            + "        contentPane.setLayout(null);\n"
-            + "        setSize(800, 700);\n");
+            + "        contentPane.setLayout(null);\n");
 
 
         for(int i=0; i< ElementArray.getSize(); ++i) {

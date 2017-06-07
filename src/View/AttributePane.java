@@ -1,6 +1,7 @@
-package GUI;
+package View;
 
-import Editor.AttributeElement;
+import Model.AttributeElement;
+import Model.ElementArray;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class AttributePane extends JPanel implements ActionListener
 {
-    private ElementArray ea;
+    private ElementArray ear;
 
     private JTextField x;
     private JTextField y;
@@ -22,9 +23,9 @@ public class AttributePane extends JPanel implements ActionListener
     private JComboBox type;
     private JTextField var;
 
-    private JButton jb;
+    private JButton apply;
 
-    public AttributePane(ElementArray ea)
+    public AttributePane(ElementArray ear)
     {
         //"attributePane[3]"에 부착된 'Swing 컴포넌트'
         x = new JTextField();
@@ -34,13 +35,13 @@ public class AttributePane extends JPanel implements ActionListener
         text = new JTextField();
         type = new JComboBox();
         var = new JTextField();
-        jb = new JButton("적용");
-        this.ea = ea;
+        apply = new JButton("적용");
+        this.ear = ear;
 
         setLayout(new BorderLayout());
         JPanel editor = new JPanel(new GridLayout(14, 1, 2, 5));
         add(editor,BorderLayout.CENTER);
-        add(jb, BorderLayout.SOUTH);
+        add(apply, BorderLayout.SOUTH);
 
         type.addItem("None");
         type.addItem("JLabel");
@@ -62,7 +63,7 @@ public class AttributePane extends JPanel implements ActionListener
         editor.add(new JLabel("컴포넌트 변수명"), 12);
         editor.add(var, 13);
 
-        jb.addActionListener(this);
+        apply.addActionListener(this);
     }
 
     public void printAttribute(AttributeElement e)
@@ -97,12 +98,11 @@ public class AttributePane extends JPanel implements ActionListener
             int Y = Integer.parseInt(y.getText());
             int W = Integer.parseInt(w.getText());
             int H = Integer.parseInt(h.getText());
-            ea.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
+            ear.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
         }
         catch(NumberFormatException ne)
         {
 
         }
-
     }
 }

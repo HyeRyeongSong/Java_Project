@@ -13,13 +13,13 @@ import java.awt.event.ActionListener;
 class MenuBar extends JMenuBar implements ActionListener
 {
 
+    MenuToolController controller;
     static JMenuItem openNewItem;
     static JMenuItem openFileItem;
     static JMenuItem saveFileItem;
     static JMenuItem saveDifFileItem;
     static JMenuItem saveJavaFileItem;
     static JMenuItem closeItem;
-    MenuToolController controller;
 
     MenuBar(MenuToolController controller)
     {
@@ -85,26 +85,24 @@ class MenuBar extends JMenuBar implements ActionListener
         }
         else if(obj == MenuBar.openFileItem)
         {
-            //파일에서 데이터 ArrayList에 가져오는 코드
+            controller.openFile();
         }
         else if(obj == MenuBar.saveFileItem)
         {
-
+            controller.saveFile();
         }
         else if(obj == MenuBar.saveDifFileItem)
         {
-
+            controller.saveasFile();
         }
         else if(obj == MenuBar.saveJavaFileItem)
         {
-
+            controller.createJavaFile();
         }
         else if(obj == MenuBar.closeItem)
         {
             controller.exitProgram();
         }
-
-
     }
 
 

@@ -45,6 +45,7 @@ public class AttributePane extends JPanel implements ActionListener
         type.addItem("None");
         type.addItem("JLabel");
         type.addItem("JButton");
+        type.addItem("JTextField");
 
         editor.add(new JLabel("시작 x 좌표"), 0);
         editor.add(x, 1);

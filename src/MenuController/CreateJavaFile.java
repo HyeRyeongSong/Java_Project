@@ -2,24 +2,29 @@ package MenuController;
 
 import GUI.ElementArray;
 
+/**
+ * Created by HyeRyeongSong on 2017. 6. 6..
+ */
 class CreateJavaFile
 {
     String MakeJavaFile(String name) {
         StringBuilder fileContent = new StringBuilder(""
-            + "import javax.swing.*;\n\n"
-            + "public class " + name + " {\n"
-            + "    public static void main(String[] args) \n"
+            + "import javax.swing.*;\n"
+            + "import java.awt.*;\n\n"
+            + "public class " + name + " extends JFrame" + "{\n"
+            + "    " + name + "()\n"
             + "    {\n"
-            + "        JFrame frame = new JFrame();\n"
-            + "        frame.setLayout(null);\n"
-            + "        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);\n"
-            + "        frame.setSize(800, 700);\n");
+            + "        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n"
+            + "        Container contentPane = getContentPane();\n"
+            + "        contentPane.setLayout(null);\n"
+            + "        setSize(800, 700);\n");
 
 
-        for(int i=0; i< ElementArray.num; ++i) {
-            fileContent.append("        ").append("AttributeElement     ")
-                    .append(ElementArray.getElement(i).getVar())
-                    .append(" = new AttributeElement();\n");
+        for(int i=0; i< ElementArray.getSize(); ++i) {
+            fileContent.append("        ").append(ElementArray.getElement(i).getType())
+                    .append(" ").append(ElementArray.getElement(i).getVar())
+                    .append(" = new ").append(ElementArray.getElement(i).getType())
+                    .append("();\n");
             String strRec = ElementArray.getElement(i).getX() + ", "
                     + ElementArray.getElement(i).getY() + ", "
                     + ElementArray.getElement(i).getW() + ", "
@@ -31,23 +36,16 @@ class CreateJavaFile
                     .append(".setText(\"").append(ElementArray.getElement(i).getText())
                     .append("\");\n");
 
-            fileContent.append("        frame.add(").append(ElementArray.getElement(i)
+            fileContent.append("        contentPane.add(").append(ElementArray.getElement(i)
                     .getVar()).append(");\n");
-
-            ElementArray.setElementLocation(i, ElementArray.getElement(i).getX(),
-                    ElementArray.getElement(i).getY());
-
-
-            fileContent.append("         ElementArray.setElementLocation(i, ElementArray.getElement(i).getX()"
-                                + "ElementArray.getElement(i).getY());\n");
-
-            fileContent.append("         ElementArray.setElementLocation(i, ElementArray.getElement(i).getW()"
-                    + "ElementArray.getElement(i).getH());\n");
-
         }
-        fileContent.append("        frame.setVisible(true);\n");
+        fileContent.append("        setSize(800, 700);\n");
+        fileContent.append("        setVisible(true);\n");
         fileContent.append("    }\n");
-        fileContent.append("}\n");
+        fileContent.append("    public static void main(String[] args)\n")
+                .append("    {\n").append("        ").append(name)
+                .append(" newObject = new ").append(name).append("();\n")
+                .append("    }\n").append("}");
         return fileContent.toString();
     }
 }

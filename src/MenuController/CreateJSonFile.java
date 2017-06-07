@@ -10,6 +10,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Created by HyeRyeongSong on 2017. 6. 6..
+ */
 class CreateJSonFile
 {
     CreateJSonFile() {}
@@ -18,7 +21,7 @@ class CreateJSonFile
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
 
-        for (int i=0; i<ElementArray.num; ++i)
+        for (int i=0; i<ElementArray.getSize(); ++i)
         {
             JSONObject element = new JSONObject();
             AttributeElement attributeElement = ElementArray.getElement(i);
@@ -34,13 +37,17 @@ class CreateJSonFile
         }
 
         jsonObject.put("Elements", jsonArray);
+        jsonObject.put("num", ElementArray.num);
         return (jsonObject.toJSONString());
     }
 
-    void parseJSonFile(String target) throws ParseException, IOException {
+    void parseJSonFile(String address) throws ParseException, IOException {
         JSONParser jsonParser = new JSONParser();
-        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(target));
+        JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(address));
         JSONArray jsonArray = (JSONArray) jsonObject.get("Elements");
+        Long lNum = (Long) jsonObject.get("num");
+        ElementArray.num = lNum.intValue();
+
 
         for (Object element : jsonArray) {
             JSONObject object = (JSONObject) element;
@@ -52,5 +59,7 @@ class CreateJSonFile
                     (String)object.get("text"), (String)object.get("type"),
                     (String)object.get("var"));
         }
+
+        ElementArray.num -= ElementArray.getSize();
     }
 }

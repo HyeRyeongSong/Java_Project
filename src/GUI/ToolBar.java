@@ -54,8 +54,8 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Open File");
             //파일 불러오는 코드
+            controller.openFile();
         }
     };
     Action saveAction = new AbstractAction("Save", saveIcon)
@@ -63,7 +63,7 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Save File");
+            controller.saveFile();
         }
     };
     Action saveasAction = new AbstractAction("Save", saveasIcon)
@@ -71,7 +71,7 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Save File");
+            controller.saveasFile();
         }
     };
     Action createJavaFileAction = new AbstractAction("CreateJavaFile", createjavafileIcon)
@@ -79,7 +79,7 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Create Java File");
+            controller.createJavaFile();
         }
     };
     Action closeAction = new AbstractAction("Close", closeIcon)
@@ -87,7 +87,6 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            System.out.println("Close");
             controller.exitProgram();
         }
     };

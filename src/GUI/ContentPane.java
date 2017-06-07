@@ -8,6 +8,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Created by HyeRyeongSong on 2017. 5. 27..
+ */
 //JFrame을 상속받아 작성한 "윈도우"
 public class ContentPane extends JFrame implements ActionListener
 {
@@ -19,14 +22,6 @@ public class ContentPane extends JFrame implements ActionListener
     private final JButton b5;
     private final ElementArray ea;
     private MenuToolController controller;
-    private final JButton b6;
-    private final JButton b7;
-    /*private final JMenuItem openNewItem;
-    private final JMenuItem openFileItem;
-    private final JMenuItem saveFileItem;
-    private final JMenuItem saveDifFileItem;
-    private final JMenuItem saveJavaFileItem;
-    private final JMenuItem closeItem;*/
 
     ContentPane()
     {
@@ -47,7 +42,7 @@ public class ContentPane extends JFrame implements ActionListener
         {
             e.printStackTrace();
         }
-        setTitle(ea.getFileName());
+        setTitle("Components Maker");
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
         MenuBar menuBar = new MenuBar(controller);
@@ -92,24 +87,18 @@ public class ContentPane extends JFrame implements ActionListener
         b3 = new JButton("이동");
         b4 = new JButton("크기 수정");
         b5 = new JButton("삭제");
-        b6 = new JButton("테스트1");
-        b7 = new JButton("테스트2");
 
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
         b4.addActionListener(this);
         b5.addActionListener(this);
-        b6.addActionListener(this);
-        b7.addActionListener(this);
 
         jp2.add(b1);
         jp2.add(b2);
         jp2.add(b3);
         jp2.add(b4);
         jp2.add(b5);
-        jp2.add(b6);
-        jp2.add(b7);
         ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
 
@@ -156,14 +145,6 @@ public class ContentPane extends JFrame implements ActionListener
         else if(obj == b5)
         {
             jp.changeMode(RectangleEditor2.Mode.Remove);
-        }
-        else if(obj == b6)
-        {
-            ea.testRemove();
-        }
-        else if(obj == b7)
-        {
-            ea.loadComponent();
         }
     }
 }

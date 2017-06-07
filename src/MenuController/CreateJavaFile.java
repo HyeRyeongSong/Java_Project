@@ -19,8 +19,7 @@ class CreateJavaFile
             + "    {\n"
             + "        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\n"
             + "        Container contentPane = getContentPane();\n"
-            + "        contentPane.setLayout(null);\n"
-            + "        setSize(800, 700);\n");
+            + "        contentPane.setLayout(null);\n");
 
 
         for(int i=0; i< ElementArray.getSize(); ++i) {

@@ -1,46 +1,81 @@
-package Editor;
+package View;
 
-import GUI.ElementArray;
+import Model.AttributeElement;
+import Model.ElementArray;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+import java.awt.event.*;
 
 /**
  * Created by m2j97 on 2017-06-01.
  */
-public class RectangleEditor extends JPanel implements MouseListener, MouseMotionListener
+public class EditorPane extends JPanel implements MouseListener, MouseMotionListener, ActionListener
 {
     private ElementArray ear;  //저장될 사각형들의 속성 정보
 
-    private JLabel jl;
+    private JButton drawButton;
+    private JButton selectButton;
+    private JButton moveButton;
+    private JButton changeSizeButton;
+    private JButton removeButton;
+    private final JPanel canvas;
+    private JLabel modeLabel;
 
+    private JLabel jl;
     private int x;
     private int y;
     private int w;
     private int h; //현재 그려지는 사각형의 좌표, 크기
-    private boolean isDragged;  //드래그 상태 여부
     private boolean isClicked;  //클릭 상태 여부
+    private boolean isDragged;  //드래그 상태 여부
     private boolean isWidDragged;
     private boolean isheiDragged;
-    private Color recColor;  //사각형 색깔상태
-    private int offX;
-    private int offY;  //마우스 오프셋좌표
+    private int offX;  //마우스 오프셋좌표
+    private int offY;
     private int selectedNum;
     private boolean selected;
     private Mode mode;  //현재 에디터의 모드
-    private boolean isClickedLabel;
+    private boolean isClickedLabel;  //레이블 클릭 여부
 
-    public enum Mode{
+    public enum Mode  //현재 에디터 모드
+    {
         Draw, Select, Move, ChangeSize, Remove
     }
 
-    public RectangleEditor(ElementArray ea)
+    public EditorPane(ElementArray ear)
     {
-        ear = ea;  //사각형 속성 배열 생성
-        setLayout(null);
+        JPanel buttonArea = new JPanel();
+        canvas = new JPanel();
+        buttonArea.setOpaque(true);
+        buttonArea.setBackground(Color.LIGHT_GRAY);
+        canvas.setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
+        add(buttonArea,BorderLayout.NORTH);
+        add(canvas,BorderLayout.CENTER);
+
+        drawButton = new JButton("그리기");
+        selectButton = new JButton("선택");
+        moveButton = new JButton("이동");
+        changeSizeButton = new JButton("크기 수정");
+        removeButton = new JButton("삭제");
+        modeLabel = new JLabel("Mode: Draw");
+
+        drawButton.addActionListener(this);
+        selectButton.addActionListener(this);
+        moveButton.addActionListener(this);
+        changeSizeButton.addActionListener(this);
+        removeButton.addActionListener(this);
+
+        buttonArea.add(drawButton);
+        buttonArea.add(selectButton);
+        buttonArea.add(moveButton);
+        buttonArea.add(changeSizeButton);
+        buttonArea.add(removeButton);
+        buttonArea.add(modeLabel);
+
+        this.ear = ear;  //사각형 속성 배열 생성
+        canvas.setLayout(null);
 
         //현재 마우스 상태 저장
         reset();
@@ -50,17 +85,17 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
         isClickedLabel = false;
         jl = null;
 
-        recColor = Color.GRAY;  //사각형 색상
         mode = Mode.Draw;  //초기 모드: 그리기
         //마우스 리스너 등록
-        addMouseListener(this);
-        addMouseMotionListener(this);
+        canvas.addMouseListener(this);
+        canvas.addMouseMotionListener(this);
     }
 
     public void changeMode(Mode m)
     {
         reset();
         mode = m;
+        modeLabel.setText("Mode: " + m.name());
     }
 
     public void reset()
@@ -75,13 +110,18 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
     }
 
     public void clear(){
-        removeAll();
+        canvas.removeAll();
         reset();
         selectedNum = -1;
         selected = false;
         isClicked = false;
         isClickedLabel = false;
         jl = null;
+    }
+
+    public JPanel getCanvas()
+    {
+        return canvas;
     }
 
     public int getSelectedNum()
@@ -111,8 +151,8 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 if(cur.getBackground() == Color.BLUE)
                 {
                     cur.setBackground(Color.GRAY);
-                    revalidate();
-                    repaint();
+                    canvas.revalidate();
+                    canvas.repaint();
                     selected = false;
                     isClicked = false;
                     System.out.println("3");
@@ -120,8 +160,8 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 else if(!selected)
                 {
                     cur.setBackground(Color.BLUE);
-                    revalidate();
-                    repaint();
+                    canvas.revalidate();
+                    canvas.repaint();
                     selected = true;
                     isClicked = true;
                     jl = cur;
@@ -152,16 +192,16 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                         System.out.println("-");
                     }
                     ear.removeElement(selectedNum);////
-                    remove(jl);
-                    revalidate();
-                    repaint();
+                    canvas.remove(jl);
+                    canvas.revalidate();
+                    canvas.repaint();
                     selected = false;
                     isClicked = false;
                     selectedNum = -1;
                 }
             }
             if(selectedNum == -1)
-                ear.setAttribute();
+                ear.setNonAttribute();
             else
                 ear.setAttribute(selectedNum);
         }
@@ -267,8 +307,8 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 jl.setLocation(e.getX() - offX, e.getY() - offY);
                 ear.setElementLocation(selectedNum,e.getX() - offX, e.getY() - offY);
                 ear.setAttribute(selectedNum);
-                revalidate();
-                repaint();
+                canvas.revalidate();
+                canvas.repaint();
                 isDragged = false;
             }
         }
@@ -279,8 +319,8 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 jl.setSize(e.getX() - jl.getX(), jl.getHeight());
                 ear.setElementSize(selectedNum, e.getX() - jl.getX(), jl.getHeight());
                 ear.setAttribute(selectedNum);
-                revalidate();
-                repaint();
+                canvas.revalidate();
+                canvas.repaint();
                 isWidDragged = false;
             }
             else if(isheiDragged)
@@ -288,8 +328,8 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 jl.setSize(jl.getWidth(), e.getY() - jl.getY());
                 ear.setElementSize(selectedNum, jl.getWidth(), e.getY() - jl.getY());
                 ear.setAttribute(selectedNum);
-                revalidate();
-                repaint();
+                canvas.revalidate();
+                canvas.repaint();
                 isheiDragged = false;
             }
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -318,6 +358,33 @@ public class RectangleEditor extends JPanel implements MouseListener, MouseMotio
                 else
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        Object obj = e.getSource();
+
+        if(obj == drawButton)
+        {
+            changeMode(EditorPane.Mode.Draw);
+        }
+        else if(obj == selectButton)
+        {
+            changeMode(EditorPane.Mode.Select);
+        }
+        else if(obj == moveButton)
+        {
+            changeMode(EditorPane.Mode.Move);
+        }
+        else if(obj == changeSizeButton)
+        {
+            changeMode(EditorPane.Mode.ChangeSize);
+        }
+        else if(obj == removeButton)
+        {
+            changeMode(EditorPane.Mode.Remove);
         }
     }
 }

@@ -1,6 +1,6 @@
-package MenuController;
+package Controller;
 
-import GUI.ElementArray;
+import Model.ElementArray;
 
 /**
  * Created by HyeRyeongSong on 2017. 6. 6..

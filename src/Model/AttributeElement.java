@@ -1,4 +1,4 @@
-package Editor;
+package Model;
 
 /**
  * Created by m2j97 on 2017-06-01.

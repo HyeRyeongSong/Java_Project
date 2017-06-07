@@ -1,7 +1,7 @@
-package MenuController;
+package Controller;
 
-import Editor.AttributeElement;
-import GUI.ElementArray;
+import Model.AttributeElement;
+import Model.ElementArray;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -41,7 +41,7 @@ class CreateJSonFile
         return (jsonObject.toJSONString());
     }
 
-    void parseJSonFile(String address) throws ParseException, IOException {
+    void saveJSonFile(String address) throws ParseException, IOException {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(address));
         JSONArray jsonArray = (JSONArray) jsonObject.get("Elements");

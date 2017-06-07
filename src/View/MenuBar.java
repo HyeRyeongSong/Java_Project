@@ -1,6 +1,6 @@
-package GUI;
+package View;
 
-import MenuController.MenuToolController;
+import Controller.MenuToolController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -93,7 +93,7 @@ class MenuBar extends JMenuBar implements ActionListener
         }
         else if(obj == MenuBar.saveDifFileItem)
         {
-            controller.saveasFile();
+            controller.saveAsFile();
         }
         else if(obj == MenuBar.saveJavaFileItem)
         {
@@ -104,6 +104,4 @@ class MenuBar extends JMenuBar implements ActionListener
             controller.exitProgram();
         }
     }
-
-
 }

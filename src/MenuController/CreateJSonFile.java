@@ -45,6 +45,9 @@ class CreateJSonFile
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(address));
         JSONArray jsonArray = (JSONArray) jsonObject.get("Elements");
+        Long lNum = (Long) jsonObject.get("num");
+        ElementArray.num = lNum.intValue();
+
 
         for (Object element : jsonArray) {
             JSONObject object = (JSONObject) element;
@@ -56,7 +59,5 @@ class CreateJSonFile
                     (String)object.get("text"), (String)object.get("type"),
                     (String)object.get("var"));
         }
-
-        ElementArray.num = (int) jsonObject.get("num");
     }
 }

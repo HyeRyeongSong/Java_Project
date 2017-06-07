@@ -1,6 +1,6 @@
 package GUI;
 
-import Editor.RectangleEditor2;
+import Editor.RectangleEditor;
 import MenuController.MenuToolController;
 
 import javax.swing.*;
@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 //JFrame을 상속받아 작성한 "윈도우"
 public class ContentPane extends JFrame implements ActionListener
 {
-    private final RectangleEditor2 jp;
+    private final RectangleEditor jp;
     private final JButton b1;
     private final JButton b2;
     private final JButton b3;
@@ -70,7 +70,7 @@ public class ContentPane extends JFrame implements ActionListener
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
-        jp = new RectangleEditor2(ea);
+        jp = new RectangleEditor(ea);
         JPanel jp2 = new JPanel();
         JPanel editorPane = new JPanel();
         ea.setPane(attributePane, jp);
@@ -128,23 +128,23 @@ public class ContentPane extends JFrame implements ActionListener
 
         if(obj == b1)
         {
-            jp.changeMode(RectangleEditor2.Mode.Draw);
+            jp.changeMode(RectangleEditor.Mode.Draw);
         }
         else if(obj == b2)
         {
-            jp.changeMode(RectangleEditor2.Mode.Select);
+            jp.changeMode(RectangleEditor.Mode.Select);
         }
         else if(obj == b3)
         {
-            jp.changeMode(RectangleEditor2.Mode.Move);
+            jp.changeMode(RectangleEditor.Mode.Move);
         }
         else if(obj == b4)
         {
-            jp.changeMode(RectangleEditor2.Mode.ChangeSize);
+            jp.changeMode(RectangleEditor.Mode.ChangeSize);
         }
         else if(obj == b5)
         {
-            jp.changeMode(RectangleEditor2.Mode.Remove);
+            jp.changeMode(RectangleEditor.Mode.Remove);
         }
     }
 }

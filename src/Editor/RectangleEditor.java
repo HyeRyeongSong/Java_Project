@@ -11,7 +11,7 @@ import java.awt.event.MouseMotionListener;
 /**
  * Created by m2j97 on 2017-06-01.
  */
-public class RectangleEditor2 extends JPanel implements MouseListener, MouseMotionListener
+public class RectangleEditor extends JPanel implements MouseListener, MouseMotionListener
 {
     private ElementArray ear;  //저장될 사각형들의 속성 정보
 
@@ -37,7 +37,7 @@ public class RectangleEditor2 extends JPanel implements MouseListener, MouseMoti
         Draw, Select, Move, ChangeSize, Remove
     }
 
-    public RectangleEditor2(ElementArray ea)
+    public RectangleEditor(ElementArray ea)
     {
         ear = ea;  //사각형 속성 배열 생성
         setLayout(null);

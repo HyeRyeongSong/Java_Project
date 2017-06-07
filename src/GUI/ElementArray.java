@@ -23,7 +23,7 @@ public class ElementArray
     public ElementArray()
     {
         ar = new ArrayList<>();
-        FileName = "NoNamed";
+        FileName = "SwingComponentBuiler";
         num = 0;
     }
 
@@ -34,7 +34,7 @@ public class ElementArray
 
     public String setDefaultFileName()
     {
-        FileName = "NoNamed";
+        FileName = "SwingComponentBuiler";
         return FileName;
     }
 

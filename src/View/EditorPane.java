@@ -46,6 +46,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
 
     public EditorPane(ElementArray ear)
     {
+        buttonArea = new JPanel();
         canvas = new JPanel();
         buttonArea.setOpaque(true);
         buttonArea.setBackground(Color.LIGHT_GRAY);

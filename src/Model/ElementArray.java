@@ -11,8 +11,6 @@ public class ElementArray
     private static ArrayList<AttributeElement> ar;
     public static int num;
 
-    private JLabel jl;
-
     public ElementArray()
     {
         ar = new ArrayList<>();

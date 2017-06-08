@@ -20,6 +20,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
     private JButton changeSizeButton;
     private JButton removeButton;
     private final JPanel canvas;
+    private JPanel buttonArea;
     private JLabel modeLabel;
 
     private JLabel jl;
@@ -45,7 +46,6 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
 
     public EditorPane(ElementArray ear)
     {
-        JPanel buttonArea = new JPanel();
         canvas = new JPanel();
         buttonArea.setOpaque(true);
         buttonArea.setBackground(Color.LIGHT_GRAY);
@@ -139,7 +139,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
     {
         System.out.println("MouseClicked");
         System.out.println("Mouse - x: " + e.getX() + " y: " +e.getY());
-        if(e.getComponent() != this)
+        if(e.getComponent() != canvas && e.getComponent() != buttonArea)
         {
             JLabel cur = (JLabel) e.getComponent();
 

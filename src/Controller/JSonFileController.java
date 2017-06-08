@@ -13,9 +13,9 @@ import java.io.IOException;
 /**
  * Created by HyeRyeongSong on 2017. 6. 6..
  */
-class CreateJSonFile
+class JSonFileController
 {
-    CreateJSonFile() {}
+    JSonFileController() {}
     String MakeJSonFile()
     {
         JSONObject jsonObject = new JSONObject();

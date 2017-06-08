@@ -1,5 +1,6 @@
 package View;
 
+import Controller.EditorController;
 import Model.AttributeElement;
 import Model.ElementArray;
 
@@ -12,7 +13,7 @@ import java.awt.event.*;
  */
 public class EditorPane extends JPanel implements MouseListener, MouseMotionListener, ActionListener
 {
-    private ElementArray ear;  //저장될 사각형들의 속성 정보
+    private EditorController controller;
 
     private JButton drawButton;
     private JButton selectButton;
@@ -43,7 +44,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
         Draw, Select, Move, ChangeSize, Remove
     }
 
-    public EditorPane(ElementArray ear)
+    public EditorPane(EditorController controller)
     {
         JPanel buttonArea = new JPanel();
         canvas = new JPanel();
@@ -74,7 +75,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
         buttonArea.add(removeButton);
         buttonArea.add(modeLabel);
 
-        this.ear = ear;  //사각형 속성 배열 생성
+        this.controller = controller;  //사각형 속성 배열 생성
         canvas.setLayout(null);
 
         //현재 마우스 상태 저장
@@ -173,9 +174,9 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
 
                 if(selected)
                 {
-                    for (int i = 0; i < ear.getSize(); i++)
+                    for (int i = 0; i < ElementArray.getSize(); i++)
                     {
-                        if (ear.getElement(i).getX() == jl.getX() && ear.getElement(i).getY() == jl.getY() && ear.getElement(i).getW() == jl.getWidth() && ear.getElement(i).getH() == jl.getHeight())
+                        if (controller.equals(jl,i))
                             selectedNum = i;
                         System.out.println("6");
                     }
@@ -185,13 +186,13 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
             {
                 if(cur.getBackground() == Color.BLUE)
                 {
-                    for (int i = 0; i < ear.getSize(); i++)
+                    for (int i = 0; i < ElementArray.getSize(); i++)
                     {
-                        if (ear.getElement(i).getX() == jl.getX() && ear.getElement(i).getY() == jl.getY() && ear.getElement(i).getW() == jl.getWidth() && ear.getElement(i).getH() == jl.getHeight())
+                        if (controller.equals(jl,i))
                             selectedNum = i;
                         System.out.println("-");
                     }
-                    ear.removeElement(selectedNum);////
+                    controller.removeElement(selectedNum);////
                     canvas.remove(jl);
                     canvas.revalidate();
                     canvas.repaint();
@@ -201,9 +202,9 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
                 }
             }
             if(selectedNum == -1)
-                ear.setNonAttribute();
+                controller.setNonAttribute();
             else
-                ear.setAttribute(selectedNum);
+                controller.setAttribute(selectedNum);
         }
         else
             System.out.println("빈공간 클릭");
@@ -220,7 +221,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
             Class c = e.getComponent().getClass();
             System.out.println(c.getName());
 
-            if(ear.getSize()>0 && c.getName().equals("javax.swing.JLabel"))
+            if(ElementArray.getSize()>0 && c.getName().equals("javax.swing.JLabel"))
             {
                 JLabel tmp = (JLabel) e.getComponent();
                 x = tmp.getX() + e.getX();
@@ -297,7 +298,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
                 w = e.getX() - x;
                 h = e.getY() - y;
             }
-            ear.createLabel(x, y, w, h);
+            controller.createLabel(x, y, w, h);
             isDragged = false;
         }
         else if (mode == Mode.Move)
@@ -305,8 +306,8 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
             if (isDragged)
             {
                 jl.setLocation(e.getX() - offX, e.getY() - offY);
-                ear.setElementLocation(selectedNum,e.getX() - offX, e.getY() - offY);
-                ear.setAttribute(selectedNum);
+                controller.setElementLocation(selectedNum,e.getX() - offX, e.getY() - offY);
+                controller.setAttribute(selectedNum);
                 canvas.revalidate();
                 canvas.repaint();
                 isDragged = false;
@@ -317,8 +318,8 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
             if(isWidDragged)
             {
                 jl.setSize(e.getX() - jl.getX(), jl.getHeight());
-                ear.setElementSize(selectedNum, e.getX() - jl.getX(), jl.getHeight());
-                ear.setAttribute(selectedNum);
+                controller.setElementSize(selectedNum, e.getX() - jl.getX(), jl.getHeight());
+                controller.setAttribute(selectedNum);
                 canvas.revalidate();
                 canvas.repaint();
                 isWidDragged = false;
@@ -326,8 +327,8 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
             else if(isheiDragged)
             {
                 jl.setSize(jl.getWidth(), e.getY() - jl.getY());
-                ear.setElementSize(selectedNum, jl.getWidth(), e.getY() - jl.getY());
-                ear.setAttribute(selectedNum);
+                controller.setElementSize(selectedNum, jl.getWidth(), e.getY() - jl.getY());
+                controller.setAttribute(selectedNum);
                 canvas.revalidate();
                 canvas.repaint();
                 isheiDragged = false;
@@ -350,7 +351,7 @@ public class EditorPane extends JPanel implements MouseListener, MouseMotionList
         {
             if(isClicked && selectedNum != -1)
             {
-                AttributeElement ae = ear.getElement(selectedNum);
+                AttributeElement ae = ElementArray.getElement(selectedNum);
                 if(e.getX() > ae.getX() + ae.getW() - 10 && e.getX() < ae.getX() + ae.getW() + 10)
                     setCursor(Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR));
                 else if(e.getY() > ae.getY() + ae.getH() - 10 && e.getY() < ae.getY() + ae.getH() + 10)

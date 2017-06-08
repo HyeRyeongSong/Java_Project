@@ -1,7 +1,7 @@
 package View;
 
+import Controller.EditorController;
 import Model.AttributeElement;
-import Model.ElementArray;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class AttributePane extends JPanel implements ActionListener
 {
-    private ElementArray ear;
+   EditorController controller;
 
     private JTextField x;
     private JTextField y;
@@ -25,7 +25,7 @@ public class AttributePane extends JPanel implements ActionListener
 
     private JButton apply;
 
-    public AttributePane(ElementArray ear)
+    public AttributePane(EditorController controller)
     {
         //"attributePane[3]"에 부착된 'Swing 컴포넌트'
         x = new JTextField();
@@ -36,7 +36,7 @@ public class AttributePane extends JPanel implements ActionListener
         type = new JComboBox();
         var = new JTextField();
         apply = new JButton("적용");
-        this.ear = ear;
+        this.controller = controller;
 
         setLayout(new BorderLayout());
         JPanel editor = new JPanel(new GridLayout(14, 1, 2, 5));
@@ -98,7 +98,7 @@ public class AttributePane extends JPanel implements ActionListener
             int Y = Integer.parseInt(y.getText());
             int W = Integer.parseInt(w.getText());
             int H = Integer.parseInt(h.getText());
-            ear.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
+            controller.changeElement(X, Y, W, H, text.getText(), (String)type.getSelectedItem(), var.getText());
         }
         catch(NumberFormatException ne)
         {

@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.ElementArray;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
@@ -13,20 +11,20 @@ import java.io.IOException;
  */
 public class MenuToolController
 {
-    private CreateJSonFile createJSonFile;
+    private JSonFileController JSonFileController;
     private CreateJavaFile createJavaFile;
     private JFileChooser jsonFileChooser;
     private JFileChooser javaFileChooser;
-    private ElementArray ea;
+    private EditorController editorController;
 
     private File currentFile;
 
-    public MenuToolController(ElementArray ea) throws Exception {
-        createJSonFile = new CreateJSonFile();
+    public MenuToolController(EditorController ea) throws Exception {
+        JSonFileController = new JSonFileController();
         createJavaFile = new CreateJavaFile();
         jsonFileChooser = new JFileChooser();
         javaFileChooser = new JFileChooser();
-        this.ea = ea;
+        this.editorController = ea;
 
         jsonFileChooser.setCurrentDirectory(
             new File(System.getProperty("user.home") + "//" + "Desktop"));
@@ -45,7 +43,7 @@ public class MenuToolController
 
     public void makeNewFile()
     {
-        ea.clear();
+        editorController.clear();
         currentFile = null;
     }
 
@@ -55,8 +53,8 @@ public class MenuToolController
         if(returnedValue == JFileChooser.APPROVE_OPTION) {
             currentFile = jsonFileChooser.getSelectedFile();
             try {
-                ea.clear();
-                createJSonFile.saveJSonFile(currentFile.getPath());
+                editorController.clear();
+                JSonFileController.saveJSonFile(currentFile.getPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -66,7 +64,7 @@ public class MenuToolController
             }
         }
         //파일 불러와서 ArrayList 저장하는 코드
-        ea.loadComponent();
+        editorController.loadComponent();
     }
 
     //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
@@ -77,7 +75,7 @@ public class MenuToolController
             return;
         }
         //String으로 변환된 ElementArray의 내용들을 dataElements에 저장
-        String dataElements = createJSonFile.MakeJSonFile();
+        String dataElements = JSonFileController.MakeJSonFile();
         try {
             String filePath = currentFile.getPath();
             if(!(filePath.endsWith(".json")) && !(filePath.endsWith(".JSON"))) {

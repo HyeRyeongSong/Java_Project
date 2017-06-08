@@ -1,5 +1,6 @@
 package View;
 
+import Controller.EditorController;
 import Controller.MenuToolController;
 import Model.ElementArray;
 
@@ -12,8 +13,9 @@ import java.awt.*;
 //JFrame을 상속받아 작성한 "윈도우"
 public class ContentPane extends JFrame
 {
-    private final ElementArray ear;
-    private MenuToolController controller;
+    private ElementArray ear;
+    private EditorController editorController;
+    private MenuToolController menuToolController;
 
     ContentPane()
     {
@@ -24,11 +26,12 @@ public class ContentPane extends JFrame
         Container contentPane = getContentPane();
         contentPane.setBackground(Color.DARK_GRAY);
         contentPane.setLayout(new BorderLayout());
-
         ear = new ElementArray();
+
+        editorController = new EditorController(ear);
         try
         {
-            controller = new MenuToolController(ear);
+            menuToolController = new MenuToolController(editorController);
         }
         catch (Exception e)
         {
@@ -37,7 +40,7 @@ public class ContentPane extends JFrame
         setTitle("Components Maker");
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
-        MenuBar menuBar = new MenuBar(controller);
+        MenuBar menuBar = new MenuBar(menuToolController);
 
         //"최상위 컨테이너[0]"의 "BorderLayout.CENTER"에 들어갈 "jPanel[1]"
         //BorderLayout을 가지는 "jPanel[1]"
@@ -48,24 +51,24 @@ public class ContentPane extends JFrame
 
 
         //"jPanel[1]"의 "BorderLayout.NORTH"에 들어갈 "툴바[2]"
-        ToolBar toolBar = new ToolBar(controller);
+        ToolBar toolBar = new ToolBar(menuToolController);
 
         //"jPanel[1]"에 "툴바[2]"를 부착한다
         jPanel.add(toolBar, BorderLayout.NORTH);
 
         //"splitPane[2]"의 "newLeftComponent"에 들어갈 "attributePane[3]"
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
-        AttributePane attributePane = new AttributePane(ear);
+        AttributePane attributePane = new AttributePane(editorController);
 
 
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
         //배치관리자가 없는 "editorPane[3]"
 
         /////////////////////////////////////////////////////////editorPane 추가 부분
-        EditorPane editorPane = new EditorPane(ear);
+        EditorPane editorPane = new EditorPane(editorController);
         ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
-        ear.setPane(attributePane, editorPane);
+        editorController.setPanes(attributePane, editorPane);
 
         //"jPanel[1]"의 "BorderLayout.CENTER"에 들어갈 "splitPane[2]"
         //"splitPane[2]"에 "attributePane[3]"과 "editorPane[3]"을 부착한다

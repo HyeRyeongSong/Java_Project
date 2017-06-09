@@ -23,11 +23,8 @@ class MenuBar extends JMenuBar implements ActionListener
 
     MenuBar(MenuToolController controller)
     {
-        Color color = new Color(171, 202, 220);
-        color.darker();
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
-        this.setBackground(color);
         //FlowLayout을 가지는 "메뉴바[1]"
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.controller = controller;  ////////////////////////////////////////////

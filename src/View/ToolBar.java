@@ -14,6 +14,11 @@ public class ToolBar extends JToolBar
     MenuToolController controller;
     ToolBar(MenuToolController controller)
     {
+        Color color = new Color(171, 202, 220);
+        color.darker().darker();
+        this.setOpaque(true);
+        this.setBackground(color);
+
         //FlowLayout을 가지는 "툴바[2]"
         this.setLayout(new FlowLayout(FlowLayout.LEADING));
         this.controller = controller;

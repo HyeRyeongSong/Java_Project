@@ -40,6 +40,7 @@ public class ContentPane extends JFrame
         setTitle("Components Maker");
 
         //"최상위 컨테이너[0]"의 "BorderLayout.NORTH"에 들어갈 "메뉴바[1]"
+
         MenuBar menuBar = new MenuBar(menuToolController);
 
         //"최상위 컨테이너[0]"의 "BorderLayout.CENTER"에 들어갈 "jPanel[1]"

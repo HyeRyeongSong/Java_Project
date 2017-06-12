@@ -5,13 +5,13 @@ package Model;
  */
 public class AttributeElement
 {
-    private int x;
-    private int y;
-    private int w;
-    private int h;
-    private String text;
-    private String type;
-    private String var;
+    private int x;  //x좌표
+    private int y;  //y좌표
+    private int w;  //너비
+    private int h;  // 높이
+    private String text;  //텍스트 속성값
+    private String type;  //컴포넌트 타입
+    private String var;  //변수명
 
     public AttributeElement(int x, int y, int w, int h, int index)
     {

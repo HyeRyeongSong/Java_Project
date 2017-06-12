@@ -61,14 +61,11 @@ public class ContentPane extends JFrame
         //(7x2)의 GridLayout을 가지는 "attributePane[3]"
         AttributePane attributePane = new AttributePane(editorController);
 
-
         //"splitPane[2]"의 "newRightComponent"에 들어갈 "editorPane[3]"
-        //배치관리자가 없는 "editorPane[3]"
-
-        /////////////////////////////////////////////////////////editorPane 추가 부분
         EditorPane editorPane = new EditorPane(editorController);
-        ////////////////////////////////////////////////////////////////
         editorPane.setBackground(Color.WHITE);
+
+        //editorController에 두 Pane 등록
         editorController.setPanes(attributePane, editorPane);
 
         //"jPanel[1]"의 "BorderLayout.CENTER"에 들어갈 "splitPane[2]"
@@ -80,7 +77,6 @@ public class ContentPane extends JFrame
 
         setSize(800, 700);
         setVisible(true);
-
     }
 
     public static void main(String[] args)

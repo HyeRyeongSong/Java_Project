@@ -7,6 +7,11 @@ import Model.ElementArray;
  */
 class CreateJavaFile
 {
+    /**
+     * 자바파일에 저장할 문자열을 만드는 메소드
+     * @param name 파일 이름
+     * @return 자바파일에 저장될 문자열 리턴
+     */
     String MakeJavaFile(String name) {
         if((name.endsWith(".java")) || (name.endsWith(".JAVA"))) {
             name = name.substring(0, name.length()-5);

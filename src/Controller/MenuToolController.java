@@ -41,12 +41,18 @@ public class MenuToolController
 
     }
 
+    /**
+     * 새 파일 열기 메소드(현재까지의 모든 정보를 초기화)
+     */
     public void makeNewFile()
     {
         editorController.clear();
         currentFile = null;
     }
 
+    /**
+     * 파일 열기 메소드
+     */
     public void openFile()
     {
         int returnedValue = jsonFileChooser.showOpenDialog(new JFrame());
@@ -67,6 +73,9 @@ public class MenuToolController
         editorController.loadComponent();
     }
 
+    /**
+     * 파일 저장 메소드
+     */
     //파일의 이름이 지정되어 있지 않을 경우 "다른이름으로 저장 메소드 호출"
     public void saveFile()
     {
@@ -90,6 +99,9 @@ public class MenuToolController
         }
     }
 
+    /**
+     * 파일 다른 이름으로 저장 메소드
+     */
     public void saveAsFile()
     {
         int returnedValue = jsonFileChooser.showSaveDialog(new JFrame());
@@ -100,6 +112,9 @@ public class MenuToolController
         }
     }
 
+    /**
+     * 자바파일로 저장 메소드
+     */
     public void createJavaFile() {
         File javaFile;
         int returnedValue = javaFileChooser.showSaveDialog(new JFrame());
@@ -123,6 +138,9 @@ public class MenuToolController
 
     }
 
+    /**
+     * 프로그램 종료 메소드
+     */
     public void exitProgram()
     {
         System.exit(0);

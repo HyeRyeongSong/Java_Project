@@ -15,6 +15,7 @@ public class AttributePane extends JPanel implements ActionListener
 {
    EditorController controller;
 
+   //현재 AttributePane상에 보여질 속성 정보 저장 필드
     private JTextField x;
     private JTextField y;
     private JTextField w;
@@ -23,7 +24,7 @@ public class AttributePane extends JPanel implements ActionListener
     private JComboBox type;
     private JTextField var;
 
-    private JButton apply;
+    private JButton apply;  //적용버튼
 
     public AttributePane(EditorController controller)
     {
@@ -66,6 +67,10 @@ public class AttributePane extends JPanel implements ActionListener
         apply.addActionListener(this);
     }
 
+    /**
+     * 해당 AttributeElement의 속성 정보를 그대로 출력하는 메소드
+     * @param e 속성 정보가 보여질 AttributeElement
+     */
     public void printAttribute(AttributeElement e)
     {
         x.setText(Integer.toString(e.getX()));
@@ -77,6 +82,9 @@ public class AttributePane extends JPanel implements ActionListener
         var.setText(e.getVar());
     }
 
+    /**
+     * 출력할 속성정보가 없는 경우에 기본값을 출력하는 메소드
+     */
     public void printNoneAttribute()
     {
         x.setText("0");
@@ -88,6 +96,7 @@ public class AttributePane extends JPanel implements ActionListener
         var.setText("");
     }
 
+    //'적용'버튼 액션 리스너(변경한 속성 정보를 적용)
     @Override
     public void actionPerformed(ActionEvent e)
     {

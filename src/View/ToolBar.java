@@ -59,7 +59,6 @@ public class ToolBar extends JToolBar
         @Override
         public void actionPerformed(ActionEvent e)
         {
-            //파일 불러오는 코드
             controller.openFile();
         }
     };

@@ -16,6 +16,11 @@ import java.io.IOException;
 class JSonFileController
 {
     JSonFileController() {}
+
+    /**
+     * JSON 형태로 저장을 위해 속성 정보가 모두 저장된 JSON 문자열 출력 메소드
+     * @return 속성정보가 모두 포함된 JSON 문자열
+     */
     String MakeJSonFile()
     {
         JSONObject jsonObject = new JSONObject();
@@ -41,6 +46,12 @@ class JSonFileController
         return (jsonObject.toJSONString());
     }
 
+    /**
+     * 저장된 JSON파일의 속성 정보를 불러와 ElementArray에 저장하기 위한 메소드
+     * @param address 파일 주소
+     * @throws ParseException
+     * @throws IOException
+     */
     void saveJSonFile(String address) throws ParseException, IOException {
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(new FileReader(address));
